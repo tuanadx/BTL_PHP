@@ -1,0 +1,74 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\CustomerController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/books/detail/{id}', [BookController::class, 'detail'])->name('books.detail');
+
+// Cart Routes
+Route::prefix('cart')->group(function () {
+    Route::get('/', [CartController::class, 'viewCart'])->name('cart.view');
+    Route::post('/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/merge', [CartController::class, 'mergeCart'])->name('cart.merge');
+    Route::post('/update-quantity', [CartController::class, 'updateQuantity'])->name('cart.update-quantity');
+    Route::post('/remove', [CartController::class, 'removeItem'])->name('cart.remove');
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout')->middleware('auth:khach_hang');
+    Route::post('/process-checkout', [CartController::class, 'processCheckout'])->name('cart.process-checkout')->middleware('auth:khach_hang');
+});
+
+// Order Routes
+Route::get('/order/success/{id}', [OrderController::class, 'success'])->name('order.success')->middleware('auth:khach_hang');
+Route::get('/order/detail/{id}', [OrderController::class, 'detail'])->name('order.detail')->middleware('auth:khach_hang');
+Route::post('/order/cancel/{id}', [OrderController::class, 'cancel'])->name('order.cancel')->middleware('auth:khach_hang');
+Route::get('/user/orders', [OrderController::class, 'index'])->name('order.list')->middleware('auth:khach_hang');
+
+// Authentication Routes
+Route::get('/users/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/users/login', [AuthController::class, 'login']);
+Route::get('/users/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/users/register', [AuthController::class, 'register']);
+Route::post('/users/logout', [AuthController::class, 'logout'])->name('logout');
+
+// User Profile Routes
+Route::prefix('user')->middleware('auth:khach_hang')->group(function () {
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::get('/edit-profile', [UserController::class, 'editProfile'])->name('edit.profile');
+    Route::post('/update-profile', [UserController::class, 'updateProfile'])->name('update.profile');
+    Route::get('/change-password', [UserController::class, 'changePassword'])->name('change.password');
+    Route::post('/update-password', [UserController::class, 'updatePassword'])->name('update.password');
+});
+
+Route::middleware(['auth:khach_hang', 'admin'])->group(function () {
+    Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('books', App\Http\Controllers\Admin\BookController::class);
+    Route::resource('customers', App\Http\Controllers\Admin\CustomerController::class);
+    Route::resource('orders', App\Http\Controllers\Admin\OrderController::class);
+    Route::resource('publishers', App\Http\Controllers\Admin\PublisherController::class);
+    Route::resource('authors', App\Http\Controllers\Admin\AuthorController::class);
+    Route::resource('countries', App\Http\Controllers\Admin\CountryController::class);
+});
