@@ -11,6 +11,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,4 +72,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('publishers', App\Http\Controllers\Admin\PublisherController::class);
     Route::resource('authors', App\Http\Controllers\Admin\AuthorController::class);
     Route::resource('countries', App\Http\Controllers\Admin\CountryController::class);
+    
+    // Customer routes
+    Route::get('customers/{id}', [App\Http\Controllers\Admin\CustomerController::class, 'show'])->name('customers.show');
+    Route::put('customers/{id}/status', [App\Http\Controllers\Admin\CustomerController::class, 'updateStatus'])->name('customers.update-status');
 });
+
+// Comment Routes
+Route::post('/comments', [CommentController::class, 'store'])
+    ->name('comments.store')
+    ->middleware('auth:khach_hang');

@@ -71,4 +71,9 @@ class Sach extends Model
     {
         return $this->belongsTo(NhaXuatBan::class, 'ma_nxb', 'ma_nxb');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'id_sach');
+    }
 }

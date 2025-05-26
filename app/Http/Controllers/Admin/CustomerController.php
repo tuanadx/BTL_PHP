@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\KhachHang;
 use Illuminate\Support\Facades\Hash;
+use App\Models\DonHang;
 
 class CustomerController extends Controller
 {
@@ -124,5 +125,33 @@ class CustomerController extends Controller
         $customer->delete();
         return redirect()->route('admin.customers.index')
             ->with('success', 'Xóa khách hàng thành công');
+    }
+
+    public function show($id)
+    {
+        $customer = KhachHang::where('role', 1)->findOrFail($id);
+        $orders = DonHang::where('id_khach_hang', $id)
+            ->with(['chiTietDonHang.sach'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('admin.customers.show', compact('customer', 'orders'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $customer = KhachHang::where('role', 1)->findOrFail($id);
+        
+        $request->validate([
+            'trang_thai' => 'required|boolean'
+        ], [
+            'trang_thai.required' => 'Trạng thái không được để trống',
+            'trang_thai.boolean' => 'Trạng thái không hợp lệ'
+        ]);
+
+        $customer->trang_thai = $request->trang_thai;
+        $customer->save();
+
+        return redirect()->back()->with('success', 'Cập nhật trạng thái khách hàng thành công');
     }
 } 

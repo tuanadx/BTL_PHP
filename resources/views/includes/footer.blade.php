@@ -85,7 +85,6 @@
         </div>
     </footer>
     <!-- JavaScript -->
-    <script src="{{ asset('js/script.min.js') }}"></script>
     <script src="{{ asset('js/pagination.js') }}"></script>
 </body>
 </html>

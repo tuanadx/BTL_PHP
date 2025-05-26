@@ -1,3 +1,5 @@
+console.log('Detail.js loaded at:', new Date().getTime());
+
 // Chức năng chuyển đổi tab
 document.addEventListener('DOMContentLoaded', function() {
     const tabHeaders = document.querySelectorAll('.tab-header');
@@ -199,4 +201,97 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
+    
+    // Comment form submission using event delegation
+    document.addEventListener('submit', async function(e) {
+        const commentForm = e.target;
+        
+        // Chỉ xử lý cho form comment
+        if (!commentForm.matches('#commentForm')) {
+            return;
+        }
+        
+        console.log('Form submit event triggered');
+        e.preventDefault();
+        
+        const submitBtn = commentForm.querySelector('button[type="submit"]');
+        if (submitBtn.disabled) {
+            console.log('Submit button is disabled, preventing duplicate');
+            return;
+        }
+        
+        submitBtn.disabled = true;
+        
+        try {
+            const formData = new FormData(commentForm);
+            const formDataObj = {};
+            formData.forEach((value, key) => {
+                formDataObj[key] = value;
+            });
+
+            const response = await fetch(`${baseUrl}/comments`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formDataObj)
+            });
+            
+            const data = await response.json();
+            
+            if (response.status === 429) {
+                // Duplicate comment error
+                Swal.fire({
+                    title: 'Cảnh báo',
+                    text: data.message,
+                    icon: 'warning',
+                    confirmButtonText: 'Đóng'
+                });
+                return;
+            }
+            
+            if (!response.ok) {
+                throw new Error(data.message || 'Có lỗi xảy ra');
+            }
+            
+            if (data.success) {
+                // Create new comment HTML
+                const newComment = `
+                    <div class="comment-item">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <div class="avatar">
+                                    <i class="fas fa-user-circle fa-2x"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="comment-author">${data.comment.khach_hang.ho_ten}</h6>
+                                <p class="comment-text">${data.comment.comment}</p>
+                                <small class="comment-date">${data.comment.created_at}</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add new comment to the list
+                const commentsList = document.getElementById('commentsList');
+                commentsList.insertAdjacentHTML('afterbegin', newComment);
+                
+                // Reset form
+                commentForm.reset();
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Lỗi',
+                text: error.message || 'Có lỗi xảy ra, vui lòng thử lại sau.',
+                icon: 'error',
+                confirmButtonText: 'Đóng'
+            });
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
 });

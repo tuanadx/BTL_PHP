@@ -2,29 +2,33 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Quản lý khách hàng</h1>
-    </div>
-
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Quản lý khách hàng</h3>
+            <div class="card-tools">
+                <a href="{{ route('admin.customers.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Thêm khách hàng
+                </a>
+            </div>
         </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    <div class="card shadow mb-4">
         <div class="card-body">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Họ tên</th>
                             <th>Email</th>
                             <th>Số điện thoại</th>
@@ -36,33 +40,33 @@
                     <tbody>
                         @foreach($customers as $customer)
                         <tr>
+                            <td>{{ $customer->id }}</td>
                             <td>{{ $customer->ho_ten }}</td>
                             <td>{{ $customer->email }}</td>
                             <td>{{ $customer->so_dien_thoai }}</td>
                             <td>{{ $customer->dia_chi }}</td>
                             <td>
-                                <span class="badge badge-{{ $customer->trang_thai ? 'success' : 'danger' }}">
-                                    {{ $customer->trang_thai ? 'Hoạt động' : 'Khóa' }}
+                                <span class="badge badge-{{ $customer->trang_thai ? 'success' : 'danger' }}" style="{{ $customer->trang_thai ? 'color: #28a745; background-color: #d4edda; border-color: #c3e6cb;' : '' }}">
+                                    {{ $customer->trang_thai ? 'Đang hoạt động' : 'Đã khóa' }}
                                 </span>
                             </td>
                             <td>
-                                <form action="{{ route('admin.customers.toggle-status', $customer->id) }}" 
-                                      method="POST" class="d-inline">
-                                    @csrf
-                                    @method('PUT')
-                                    <button type="submit" class="btn btn-{{ $customer->trang_thai ? 'warning' : 'success' }} btn-sm">
-                                        <i class="fas fa-{{ $customer->trang_thai ? 'lock' : 'unlock' }}"></i>
-                                        {{ $customer->trang_thai ? 'Khóa' : 'Mở khóa' }}
-                                    </button>
-                                </form>
+                                <a href="{{ route('admin.customers.show', $customer->id) }}" 
+                                   class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i> Chi tiết
+                                </a>
+                                <a href="{{ route('admin.customers.edit', $customer->id) }}" 
+                                   class="btn btn-primary btn-sm">
+                                    <i class="fas fa-edit"></i> Sửa
+                                </a>
                                 <form action="{{ route('admin.customers.destroy', $customer->id) }}" 
-                                      method="POST" class="d-inline">
+                                      method="POST" 
+                                      class="d-inline"
+                                      onsubmit="return confirm('Bạn có chắc chắn muốn xóa khách hàng này?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" 
-                                            onclick="return confirm('Bạn có chắc chắn muốn xóa? Chỉ có thể xóa khách hàng chưa có đơn hàng.')">
-                                        <i class="fas fa-trash"></i>
-                                        Xóa
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Xóa
                                     </button>
                                 </form>
                             </td>
@@ -71,7 +75,10 @@
                     </tbody>
                 </table>
             </div>
-            {{ $customers->links() }}
+
+            <div class="mt-3">
+                {{ $customers->links() }}
+            </div>
         </div>
     </div>
 </div>
