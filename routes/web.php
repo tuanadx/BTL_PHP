@@ -82,3 +82,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 Route::post('/comments', [CommentController::class, 'store'])
     ->name('comments.store')
     ->middleware('auth:khach_hang');
+
+    use App\Http\Controllers\Auth\ForgotPasswordController;
+    use App\Http\Controllers\Auth\ResetPasswordController;
+    
+    Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+    Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+    
+    use Mews\Captcha\CaptchaController;
+    
+    Route::get('captcha', [CaptchaController::class, 'getCaptcha'])->name('captcha');
+
