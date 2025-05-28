@@ -26,11 +26,15 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
+            'captcha' => 'required|captcha',                           
         ], [
             'email.required' => 'Email không được để trống',
             'email.email' => 'Email không đúng định dạng',
             'password.required' => 'Mật khẩu không được để trống',
+            'captcha.required' => 'Vui lòng nhập mã xác nhận',
+            'captcha.captcha' => 'Mã xác nhận không đúng.',
         ]);
+        $credentials = $request->only('email', 'password');
 
         if (Auth::guard('khach_hang')->attempt($credentials)) {
             $request->session()->regenerate();
