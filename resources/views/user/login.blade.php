@@ -37,19 +37,35 @@
                             </div>
                             
                             <div class="mb-4">
-                                <label for="password" class="form-label">Mật khẩu <span class="text-danger">*</span></label>
-                                <input type="password" name="password" id="password" 
-                                    class="form-control form-control-lg @error('password') is-invalid @enderror">
-                                @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                            <label for="password" class="form-label">Mật khẩu <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="password" name="password" id="password" class="form-control form-control-lg @error('password') is-invalid @enderror">
+                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()" tabindex="-1">
+                                    <i class="fa fa-eye" id="toggleIcon"></i>
+                                </button>
                             </div>
-                            
+                            <div class="form-group">
+                                <label for="captcha">Mã xác nhận</label>
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ captcha_src('default') }}" id="captcha-img" alt="captcha" class="ms-2" style="height: 45px; cursor: pointer;" title="Click để đổi mã">
+                                    <button type="button" class="btn btn-secondary btn-sm ms-2" id="reload">🔄</button>
+                                </div>
+                                <input type="text" class="form-control mt-2" name="captcha" placeholder="Nhập mã xác nhận">
+                                @if ($errors->has('captcha'))
+                                    <span class="text-danger">{{ $errors->first('captcha') }}</span>
+                                @endif
+                            </div>        
+                                
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            </div>
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-success btn-lg" style="background-color: #2a5a4c; border-color: #2a5a4c;">Đăng nhập</button>
                             </div>
                             
                             <div class="text-center mt-4">
+                                <a href="{{ route('password.request') }}">Quên mật khẩu?</a>
                                 <p>Chưa có tài khoản? <a href="{{ route('register') }}" class="text-decoration-none">Đăng ký</a></p>
                             </div>
                         </form>
@@ -69,8 +85,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
     <!-- Cart Script -->
     <script src="{{ asset('js/utils.js') }}"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+       $('#reload').click(function () {
+    $('#captcha-img').attr('src', '{{ captcha_src('default') }}' + '?' + Date.now());
+});
     $(document).ready(function() {
         setupAjaxDefaults();
         
@@ -127,6 +146,19 @@
             });
         });
     });
+    function togglePassword() {
+                            const input = document.getElementById("password");
+                            const icon = document.getElementById("toggleIcon");
+                            if (input.type === "password") {
+                                input.type = "text";
+                                icon.classList.remove("fa-eye");
+                                icon.classList.add("fa-eye-slash");
+                            } else {
+                                input.type = "password";
+                                icon.classList.remove("fa-eye-slash");
+                                icon.classList.add("fa-eye");
+                            }
+    }   
     </script>
 </body>
 </html> 
