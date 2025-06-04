@@ -126,47 +126,7 @@
 
     <!-- Phần bình luận -->
     <div class="container mt-4">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="section-title">Bình luận</h4>
-                
-                @auth('khach_hang')
-                    <form id="commentForm" class="comment-form">
-                        @csrf
-                        <input type="hidden" name="id_sach" value="{{ $book->id }}">
-                        <div class="form-group">
-                            <textarea class="form-control comment-input" name="comment" rows="3" placeholder="Viết bình luận của bạn..."></textarea>
-                        </div>
-                        <div class="text-right mt-2">
-                            <button type="submit" class="btn-comment">Gửi bình luận</button>
-                        </div>
-                    </form>
-                @else
-                    <div class="alert alert-info">
-                        Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để bình luận.
-                    </div>
-                @endauth
-
-                <div class="comments-list mt-4" id="commentsList">
-                    @foreach($book->comments()->with('khachHang')->orderBy('created_at', 'desc')->get() as $comment)
-                        <div class="comment-item">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <div class="avatar">
-                                        <i class="fas fa-user-circle fa-2x"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <h6 class="comment-author">{{ $comment->khachHang->ho_ten }}</h6>
-                                    <p class="comment-text">{{ $comment->comment }}</p>
-                                    <small class="comment-date">{{ $comment->created_at->format('d/m/Y H:i') }}</small>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
+        <x-book-comments :book="$book" />
     </div>
     
     <!-- Related Books Section -->

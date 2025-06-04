@@ -82,6 +82,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 Route::post('/comments', [CommentController::class, 'store'])
     ->name('comments.store')
     ->middleware('auth:khach_hang');
+Route::delete('/comments/{id}', [CommentController::class, 'destroy'])
+    ->name('comments.destroy')
+    ->middleware('auth:khach_hang');
 
     use App\Http\Controllers\Auth\ForgotPasswordController;
     use App\Http\Controllers\Auth\ResetPasswordController;
