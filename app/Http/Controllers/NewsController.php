@@ -17,4 +17,9 @@ class NewsController extends Controller
         // For now, return the view
         return view('news.reader_reviews');
     }
+
+    public function reviewBaoChi()
+    {
+        return view('news.review_bao_chi');
+    }
 }

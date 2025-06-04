@@ -51,7 +51,7 @@
                                         <ul class="item_small">
                                             <li><a href="{{ route('news.nhanam') }}" title="Tin tức Nhã Nam">Tin Nhã Nam</a></li>
                                             <li><a href="{{ route('news.reader_reviews') }}" title="Review sách của độc giả">Review sách của độc giả</a></li>
-                                            <li><a href="#">Review sách trên báo chí</a></li>
+                                            <li><a href="{{ route('news.review_bao_chi') }}" title="Review sách trên báo chí">Review sách trên báo chí</a></li>
                                             <li><a href="#">Biên tập viên giới thiệu</a></li>
                                         </ul>
                                     </li>

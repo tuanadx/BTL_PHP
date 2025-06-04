@@ -107,3 +107,6 @@ Route::get('/tin-nha-nam', [NewsController::class, 'nhanam'])->name('news.nhanam
 // Review sach doc gia
 Route::get('/review-sach-doc-gia', [NewsController::class, 'readerReviews'])->name('news.reader_reviews');
 
+// Review sach tren bao chi
+Route::get('/review-sach-tren-bao-chi', [NewsController::class, 'reviewBaoChi'])->name('news.review_bao_chi');
+
