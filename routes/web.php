@@ -101,6 +101,9 @@ Route::delete('/comments/{id}', [CommentController::class, 'destroy'])
     Route::get('captcha', [CaptchaController::class, 'getCaptcha'])->name('captcha');
 
 // News routes
-Route::get('/tin-nha-nam', [App\Http\Controllers\NewsController::class, 'nhanam'])->name('news.nhanam');
+Route::get('/tin-nha-nam', [NewsController::class, 'nhanam'])->name('news.nhanam');
 // Add other news routes if needed
+
+// Review sach doc gia
+Route::get('/review-sach-doc-gia', [NewsController::class, 'readerReviews'])->name('news.reader_reviews');
 

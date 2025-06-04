@@ -10,4 +10,11 @@ class NewsController extends Controller
     {
         return view('news.nhanam');
     }
+
+    public function readerReviews()
+    {
+        // We'll add logic to fetch and paginate reviews here later
+        // For now, return the view
+        return view('news.reader_reviews');
+    }
 }

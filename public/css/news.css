@@ -308,3 +308,38 @@
         /* Removed */
     }
 }
+
+/* Full width layout adjustments */
+.blogpage .container {
+    max-width: 100%;
+    /* Removed padding */
+    padding: 0;
+}
+
+.blogpage .row {
+    margin: 0;
+}
+
+.blogpage .col-lg-9 {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+    .main-content .container {
+        gap: 20px;
+    }
+
+    .main-content .row>[class*="col-"] {
+        padding: 0 15px;
+    }
+}
+
+@media (min-width: 992px) {
+    .blogpage .container {
+        /* Removed padding */
+        padding: 0;
+    }
+}

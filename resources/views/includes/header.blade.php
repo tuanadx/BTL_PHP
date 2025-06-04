@@ -49,8 +49,8 @@
                                         <a class="a-img caret-down" href="{{ route('news.nhanam') }}" title="Tin Sách">Tin Sách</a>
                                         <i class="fa fa-angle-down"></i>
                                         <ul class="item_small">
-                                            <li><a href="{{ route('news.nhanam') }}">Tin Nhã Nam</a></li>
-                                            <li><a href="#">Review sách của độc giả</a></li>
+                                            <li><a href="{{ route('news.nhanam') }}" title="Tin tức Nhã Nam">Tin Nhã Nam</a></li>
+                                            <li><a href="{{ route('news.reader_reviews') }}" title="Review sách của độc giả">Review sách của độc giả</a></li>
                                             <li><a href="#">Review sách trên báo chí</a></li>
                                             <li><a href="#">Biên tập viên giới thiệu</a></li>
                                         </ul>
