@@ -1,0 +1,310 @@
+/* News List Page Styles */
+.title-module {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #2a5a4c;
+    padding-bottom: 10px;
+}
+
+.item_blog_base {
+    margin-bottom: 30px;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.item_blog_base:hover {
+    transform: translateY(-5px);
+}
+
+.item_blog_base .thumb {
+    display: block;
+    position: relative;
+    padding-top: 60%;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.item_blog_base .thumb img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.5s ease;
+}
+
+.item_blog_base:hover .thumb img {
+    transform: scale(1.05);
+}
+
+.item_blog_base .content_blog {
+    padding: 15px;
+}
+
+.item_blog_base .content_blog h3 {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.item_blog_base .content_blog h3 a {
+    color: #2a5a4c;
+    text-decoration: none;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+
+.item_blog_base .content_blog h3 a:hover {
+    color: #2a5a4c;
+}
+
+.item_blog_base .content_blog span {
+    font-size: 12px;
+    color: #666;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+
+/* News Page Styles */
+
+/* Breadcrumb Styles (adjusting existing main.css styles) */
+.breadcrumb {
+    padding: 15px 0;
+    background-color: #f5f5f5;
+    /* Light background color */
+    /* background-image: url('https://ext.same-assets.com/3715259319/2748496559.jpeg'); Remove background image */
+    background-size: cover;
+    background-position: center;
+    margin-top: 80px;
+    /* Add margin top to clear fixed header */
+}
+
+.breadcrumb ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    /* Ensure no list bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumb ul li {
+    margin-right: 10px;
+    position: relative;
+    font-size: 14px;
+}
+
+.breadcrumb ul li:not(:last-child):after {
+    content: '>';
+    margin-left: 10px;
+    color: #999;
+}
+
+.breadcrumb ul li a {
+    color: #555;
+    /* Default link color */
+    text-decoration: none;
+}
+
+.breadcrumb ul li a:hover {
+    color: #2a5a4c;
+    /* Project green on hover */
+}
+
+.breadcrumb ul li.active {
+    color: #2a5a4c;
+    /* Project green for active item */
+    font-weight: 500;
+}
+
+/* Main Content and Layout */
+.main-content .container {
+    /* display: flex; Remove flex for full width */
+    /* gap: 30px; Remove gap */
+    padding: 30px 15px;
+}
+
+/* Adjust column padding if necessary */
+.main-content .row>[class*="col-"] {
+    padding: 0 15px;
+}
+
+/* Main News Title */
+.main-content .title-module {
+    font-size: 28px;
+    color: #2a5a4c;
+    /* Project green color */
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.title-module::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 50px;
+    /* Underline */
+    background-color: #2a5a4c;
+    /* Project green color */
+}
+
+/* News Article Item Styles */
+.item_blog_base {
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.item_blog_base:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.item_blog_base .thumb {
+    display: block;
+    position: relative;
+    padding-top: 60%;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.item_blog_base .thumb img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.item_blog_base:hover .thumb img {
+    transform: scale(1.05);
+}
+
+.item_blog_base .content_blog {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.item_blog_base .content_blog h3 {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.item_blog_base .content_blog h3 a {
+    color: #2a5a4c;
+    text-decoration: none;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+
+.item_blog_base .content_blog h3 a:hover {
+    color: #2a5a4c;
+}
+
+.item_blog_base .content_blog span {
+    font-size: 13px;
+    color: #777;
+    display: block;
+    margin-top: auto;
+}
+
+/* Sidebar Styles (removed as sidebar is removed) */
+
+/* Pagination Styles (using styles from main.css) */
+.pagenav {
+    margin-top: 30px;
+    text-align: right;
+    /* Align pagination to the right */
+}
+
+.pagination-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    display: flex;
+    gap: 5px;
+}
+
+.page-link {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #2a5a4c;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.page-link:hover {
+    background: #2a5a4c;
+    color: #fff;
+    border-color: #2a5a4c;
+}
+
+.page-item.active .page-link {
+    background: #2a5a4c;
+    color: #fff;
+    border-color: #2a5a4c;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    background: #f8f9fa;
+}
+
+/* Ensure correct column behavior on different screen sizes */
+@media (max-width: 991px) {
+    .main-content .container {
+        /* flex-direction: column; Keep column direction on smaller screens if needed, but not for main content */
+        gap: 20px;
+        /* Adjust gap */
+    }
+
+    .main-content .row>[class*="col-"] {
+        padding: 0 15px;
+        /* Ensure padding exists */
+    }
+
+    /* .sidebar-blog { */
+    /* Removed sidebar styles */
+    /*     margin-bottom: 20px; */
+    /* Removed sidebar styles */
+    /* } */
+}
+
+@media (min-width: 992px) {
+
+    /* Revert to row layout on larger screens (not applicable for full-width main content) */
+    .main-content .container {
+        /* flex-direction: row; */
+        /* Removed */
+        /* gap: 30px; */
+        /* Removed */
+    }
+}

@@ -46,13 +46,13 @@
                                         <a class="a-img" href="{{ url('/') }}" title="Trang chủ">Trang chủ</a>
                                     </li>
                                     <li class="nav-item has-child">
-                                        <a class="a-img caret-down" href="{{ url('/tin-sach') }}" title="Tin Sách">Tin Sách</a>
+                                        <a class="a-img caret-down" href="{{ route('news.nhanam') }}" title="Tin Sách">Tin Sách</a>
                                         <i class="fa fa-angle-down"></i>
                                         <ul class="item_small">
-                                            <li><a href="{{ url('/tin-nha-nam') }}">Tin Nhã Nam</a></li>
-                                            <li><a href="{{ url('/review-sach-cua-doc-gia') }}">Review sách của độc giả</a></li>
-                                            <li><a href="{{ url('/review-sach-tren-bao-chi') }}">Review sách trên báo chí</a></li>
-                                            <li><a href="{{ url('/bien-tap-vien-gioi-thieu') }}">Biên tập viên giới thiệu</a></li>
+                                            <li><a href="{{ route('news.nhanam') }}">Tin Nhã Nam</a></li>
+                                            <li><a href="#">Review sách của độc giả</a></li>
+                                            <li><a href="#">Review sách trên báo chí</a></li>
+                                            <li><a href="#">Biên tập viên giới thiệu</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item">

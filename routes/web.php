@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,4 +99,8 @@ Route::delete('/comments/{id}', [CommentController::class, 'destroy'])
     use Mews\Captcha\CaptchaController;
     
     Route::get('captcha', [CaptchaController::class, 'getCaptcha'])->name('captcha');
+
+// News routes
+Route::get('/tin-nha-nam', [App\Http\Controllers\NewsController::class, 'nhanam'])->name('news.nhanam');
+// Add other news routes if needed
 
