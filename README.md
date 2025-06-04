@@ -7,5 +7,4 @@ chạy composer install
    npm install
    npm run dev
 
-
    Php artisan serve
