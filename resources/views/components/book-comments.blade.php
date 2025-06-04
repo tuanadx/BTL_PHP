@@ -28,7 +28,10 @@
                         <div class="avatar">
                             <i class="fas fa-user"></i>
                         </div>
-                        <span>{{ $comment->khachHang->ten_khach_hang }}</span>
+                        <div class="author-info">
+                            <span class="author-name">{{ $comment->khachHang->ho_ten }}</span>
+                            <span class="author-role">Khách hàng</span>
+                        </div>
                     </div>
                     <div class="comment-date">
                         {{ $comment->created_at->format('d/m/Y H:i') }}
@@ -39,10 +42,12 @@
                 </div>
                 @auth('khach_hang')
                     @if(auth('khach_hang')->id() == $comment->id_khach_hang)
-                        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="text-right">
+                        <div class="text-right">
+                            <button type="button" class="btn-delete" onclick="showDeleteConfirm('{{ $comment->id }}')">Xóa</button>
+                        </div>
+                        <form id="delete-form-{{ $comment->id }}" action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="d-none">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn-delete">Xóa</button>
                         </form>
                     @endif
                 @endauth
@@ -52,6 +57,23 @@
                 Chưa có bình luận nào. Hãy là người đầu tiên bình luận!
             </div>
         @endforelse
+    </div>
+</div>
+
+<!-- Modal Xác nhận xóa -->
+<div id="deleteConfirmModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Xác nhận xóa</h4>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>Bạn có chắc chắn muốn xóa bình luận này?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-cancel">Hủy</button>
+            <button type="button" class="btn-confirm">Xóa</button>
+        </div>
     </div>
 </div>
 
@@ -131,8 +153,6 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #2F5A33;
-    font-weight: 600;
 }
 
 .avatar {
@@ -192,4 +212,147 @@
 .text-right {
     text-align: right;
 }
-</style> 
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 0;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h4 {
+    margin: 0;
+    color: #2F5A33;
+    font-size: 18px;
+}
+
+.close {
+    color: #aaa;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-cancel {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+.btn-confirm {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-confirm:hover {
+    background-color: #c82333;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-weight: 600;
+    color: #2F5A33;
+}
+
+.author-role {
+    font-size: 0.8em;
+    color: #6c757d;
+}
+</style>
+
+<script>
+let currentCommentId = null;
+const modal = document.getElementById('deleteConfirmModal');
+const closeBtn = document.getElementsByClassName('close')[0];
+const cancelBtn = document.getElementsByClassName('btn-cancel')[0];
+const confirmBtn = document.getElementsByClassName('btn-confirm')[0];
+
+function showDeleteConfirm(commentId) {
+    currentCommentId = commentId;
+    modal.style.display = 'block';
+}
+
+function closeModal() {
+    modal.style.display = 'none';
+    currentCommentId = null;
+}
+
+function confirmDelete() {
+    if (currentCommentId) {
+        document.getElementById('delete-form-' + currentCommentId).submit();
+    }
+}
+
+closeBtn.onclick = closeModal;
+cancelBtn.onclick = closeModal;
+confirmBtn.onclick = confirmDelete;
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        closeModal();
+    }
+}
+</script> 
