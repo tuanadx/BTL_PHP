@@ -22,4 +22,9 @@ class NewsController extends Controller
     {
         return view('news.review_bao_chi');
     }
+
+    public function editorRecommendations()
+    {
+        return view('news.editor_recommendations');
+    }
 }

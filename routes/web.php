@@ -102,6 +102,7 @@ Route::delete('/comments/{id}', [CommentController::class, 'destroy'])
 
 // News routes
 Route::get('/tin-nha-nam', [NewsController::class, 'nhanam'])->name('news.nhanam');
+Route::get('/bien-tap-vien-gioi-thieu', [NewsController::class, 'editorRecommendations'])->name('news.editor_recommendations');
 // Add other news routes if needed
 
 // Review sach doc gia
