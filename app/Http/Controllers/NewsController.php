@@ -27,4 +27,9 @@ class NewsController extends Controller
     {
         return view('news.editor_recommendations');
     }
+
+    public function aiDocCungTa()
+    {
+        return view('news.ai_doc_cung_ta');
+    }
 }

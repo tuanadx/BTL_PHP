@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ContestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,4 +115,7 @@ Route::get('/review-sach-tren-bao-chi', [NewsController::class, 'reviewBaoChi'])
 // Author routes
 Route::get('/tac-gia', [AuthorController::class, 'index'])->name('authors.index');
 Route::get('/tac-gia/{id}', [AuthorController::class, 'show'])->name('authors.show');
+
+// Contest routes
+Route::get('/ai-do-doc-cung-ta', [NewsController::class, 'aiDocCungTa'])->name('news.ai_doc_cung_ta');
 
