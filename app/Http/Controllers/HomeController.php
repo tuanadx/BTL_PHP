@@ -60,4 +60,9 @@ class HomeController extends Controller
             'sortType' => $sortType
         ]);
     }
+
+    public function about()
+    {
+        return view('about');
+    }
 }

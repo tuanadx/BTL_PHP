@@ -119,3 +119,6 @@ Route::get('/tac-gia/{id}', [AuthorController::class, 'show'])->name('authors.sh
 // Contest routes
 Route::get('/ai-do-doc-cung-ta', [NewsController::class, 'aiDocCungTa'])->name('news.ai_doc_cung_ta');
 
+// About page route
+Route::get('/gioi-thieu', [HomeController::class, 'about'])->name('about');
+
