@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+@section('styles')
+    <link href="{{ asset('css/news.css') }}" rel="stylesheet">
+@endsection
     <!-- Breadcrumb -->
     <div class="breadcrumb">
         <div class="container">

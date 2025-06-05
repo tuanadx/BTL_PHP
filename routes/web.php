@@ -122,3 +122,6 @@ Route::get('/ai-do-doc-cung-ta', [NewsController::class, 'aiDocCungTa'])->name('
 // About page route
 Route::get('/gioi-thieu', [HomeController::class, 'about'])->name('about');
 
+// Stores page route
+Route::get('/he-thong-hieu-sach', [HomeController::class, 'stores'])->name('stores');
+
