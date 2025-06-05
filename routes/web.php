@@ -111,3 +111,7 @@ Route::get('/review-sach-doc-gia', [NewsController::class, 'readerReviews'])->na
 // Review sach tren bao chi
 Route::get('/review-sach-tren-bao-chi', [NewsController::class, 'reviewBaoChi'])->name('news.review_bao_chi');
 
+// Author routes
+Route::get('/tac-gia', [AuthorController::class, 'index'])->name('authors.index');
+Route::get('/tac-gia/{id}', [AuthorController::class, 'show'])->name('authors.show');
+

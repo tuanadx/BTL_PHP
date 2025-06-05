@@ -56,7 +56,7 @@
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="a-img" href="{{ url('/tac-gia') }}" title="Tác giả">Tác giả</a>
+                                        <a class="a-img" href="{{ route('authors.index') }}" title="Tác giả">Tác giả</a>
                                     </li>
                                     <li class="nav-item has-child">
                                         <a class="a-img caret-down" href="{{ url('/cuoc-thi') }}" title="Cuộc Thi">Cuộc Thi</a>
