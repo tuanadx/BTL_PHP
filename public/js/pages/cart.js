@@ -226,13 +226,26 @@ function updateCartSummary(data) {
     }
 }
 
+// Update cart count in header
+function updateCartCount(count) {
+    const cartCountElement = document.querySelector('.cart-count');
+    if (cartCountElement) {
+        cartCountElement.textContent = count;
+        if (count === 0) {
+            cartCountElement.style.display = 'none';
+        } else {
+            cartCountElement.style.display = 'block';
+        }
+    }
+}
+
 // Remove items from cart
 function setupRemoveItems() {
     const removeButtons = document.querySelectorAll('.remove-item');
     
     removeButtons.forEach(button => {
         button.addEventListener('click', async () => {
-            const bookId = button.dataset.bookId;
+            const cartDetailId = button.dataset.cartDetailId;
             
             const result = await Swal.fire({
                 title: 'Xác nhận xóa',
@@ -246,14 +259,20 @@ function setupRemoveItems() {
             });
 
             if (result.isConfirmed) {
-                await removeCartItem(bookId);
+                await removeCartItem(cartDetailId);
             }
         });
     });
 }
 
+// Check if cart is empty
+function isCartEmpty() {
+    const cartItems = document.querySelectorAll('.cart-table tbody tr');
+    return cartItems.length === 0;
+}
+
 // Remove cart item
-async function removeCartItem(bookId) {
+async function removeCartItem(cartDetailId) {
     try {
         utils.showLoading();
         const response = await fetch(`${baseUrl}/cart/remove`, {
@@ -262,33 +281,80 @@ async function removeCartItem(bookId) {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
             },
-            body: JSON.stringify({ book_id: bookId })
+            body: JSON.stringify({ cart_detail_id: cartDetailId })
         });
 
         const data = await response.json();
         utils.hideLoading();
 
-        if (data.success) {
+        // Kiểm tra response success từ server
+        if (data && data.success) {
             // Remove item row from DOM
-            const itemRow = document.querySelector(`tr[data-book-id="${bookId}"]`);
-            itemRow.remove();
+            const itemRow = document.querySelector(`tr[data-cart-detail-id="${cartDetailId}"]`);
+            if (itemRow) {
+                itemRow.remove();
+            }
             
-            // Update cart total and count
-            updateCartTotal(data.total);
-            updateCartCount(data.cartCount);
-
-            // Show empty cart message if no items left
-            if (data.cartCount === 0) {
-                showEmptyCartMessage();
+            // Cập nhật số lượng trong giỏ hàng
+            if (typeof data.cartCount !== 'undefined') {
+                updateCartCount(data.cartCount);
             }
 
-            utils.showNotification('Đã xóa sản phẩm khỏi giỏ hàng', 'success');
+            // Kiểm tra còn sản phẩm trong giỏ hàng không
+            const cartItems = document.querySelectorAll('.cart-table tbody tr');
+            if (cartItems.length === 0) {
+                // Ẩn phần cart-summary nếu không còn sản phẩm
+                const cartSummary = document.querySelector('.cart-summary');
+                if (cartSummary) {
+                    cartSummary.style.display = 'none';
+                }
+                
+                // Hiển thị thông báo giỏ hàng trống
+                const cartContent = document.querySelector('.cart-content');
+                if (cartContent) {
+                    cartContent.innerHTML = `
+                        <h1 class="cart-title">Giỏ hàng của bạn</h1>
+                        <div class="empty-cart">
+                            <p>Giỏ hàng của bạn hiện đang trống.</p>
+                            <a href="${baseUrl}" class="continue-btn">Tiếp tục mua hàng</a>
+                        </div>
+                    `;
+                }
+            } else {
+                // Update cart summary if items remain
+                updateCartSummary({
+                    subTotal: data.subTotal,
+                    vat: data.vat,
+                    shipping: data.shipping,
+                    orderTotal: data.total
+                });
+            }
+
+            // Hiển thị thông báo thành công
+            Swal.fire({
+                title: 'Thành công!',
+                text: 'Đã xóa sản phẩm khỏi giỏ hàng',
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false
+            });
         } else {
-            utils.showNotification(data.message || 'Có lỗi xảy ra', 'error');
+            // Hiển thị thông báo lỗi từ server
+            Swal.fire({
+                title: 'Lỗi!',
+                text: data.message || 'Không thể xóa sản phẩm khỏi giỏ hàng',
+                icon: 'error'
+            });
         }
     } catch (error) {
         utils.hideLoading();
-        utils.showNotification('Có lỗi xảy ra', 'error');
+        console.error('Error removing item:', error);
+        // Hiển thị thông báo lỗi khi có lỗi kết nối hoặc parse JSON
+        Swal.fire({
+            title: 'Lỗi!',
+            text: 'Có lỗi xảy ra khi xử lý yêu cầu',
+            icon: 'error'
+        });
     }
 }
 
@@ -388,13 +454,39 @@ function updateItemTotal(bookId, total) {
 
 // Show empty cart message
 function showEmptyCartMessage() {
+    // Xóa bảng giỏ hàng
     const cartTable = document.querySelector('.cart-table');
-    const emptyMessage = `
-        <div class="empty-cart">
-            <p>Giỏ hàng của bạn đang trống</p>
-            <a href="${baseUrl}" class="continue-btn">Tiếp tục mua sắm</a>
-        </div>
-    `;
-    
-    cartTable.innerHTML = emptyMessage;
+    if (cartTable) {
+        cartTable.remove();
+    }
+
+    // Xóa nút tiếp tục mua hàng
+    const cartActions = document.querySelector('.cart-actions');
+    if (cartActions) {
+        cartActions.remove();
+    }
+
+    // Xóa phần tổng tiền
+    const cartSummary = document.querySelector('.cart-summary');
+    if (cartSummary) {
+        cartSummary.parentElement.remove(); // Xóa cả container cha của cart-summary
+    }
+
+    // Xóa nút thanh toán
+    const checkoutButton = document.querySelector('.checkout-button');
+    if (checkoutButton) {
+        checkoutButton.remove();
+    }
+
+    // Thêm thông báo giỏ hàng trống vào cart-content
+    const cartContent = document.querySelector('.cart-content');
+    if (cartContent) {
+        cartContent.innerHTML = `
+            <h1 class="cart-title">Giỏ hàng của bạn</h1>
+            <div class="empty-cart">
+                <p>Giỏ hàng của bạn hiện đang trống.</p>
+                <a href="${baseUrl}" class="continue-btn">Tiếp tục mua hàng</a>
+            </div>
+        `;
+    }
 } 

@@ -24,30 +24,21 @@ document.addEventListener('DOMContentLoaded', function() {
         backToTopButton.style.display = 'none';
     }
 
-    
-    // Chức năng thêm vào giỏ hàng
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    addToCartButtons.forEach(function(button) {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const bookId = this.dataset.bookId;
-            const quantity = 1; // Số lượng mặc định
-            
-            console.log('Thêm vào giỏ hàng - book ID:', bookId);
-            
-            if (!bookId) {
-                console.error('Không tìm thấy ID sách!');
-                Swal.fire({
-                    title: 'Có lỗi xảy ra!',
-                    text: 'Không tìm thấy ID sách',
-                    icon: 'error',
-                    confirmButtonText: 'Đóng',
-                    confirmButtonColor: '#2a5a4c'
-                });
-                return;
-            }
-            
+    // Hàm thêm vào giỏ hàng
+    async function addToCart(bookId, quantity, redirectToCart = false) {
+        if (!bookId) {
+            console.error('Không tìm thấy ID sách!');
+            Swal.fire({
+                title: 'Có lỗi xảy ra!',
+                text: 'Không tìm thấy ID sách',
+                icon: 'error',
+                confirmButtonText: 'Đóng',
+                confirmButtonColor: '#2a5a4c'
+            });
+            return false;
+        }
+
+        try {
             // Hiển thị thông báo đang xử lý
             Swal.fire({
                 title: 'Đang xử lý...',
@@ -57,36 +48,39 @@ document.addEventListener('DOMContentLoaded', function() {
                     Swal.showLoading();
                 }
             });
-            
-            // Kiểm tra và lấy đường dẫn cơ sở của website
-            const url = typeof baseUrl !== 'undefined' ? baseUrl + '/carts/add' : '/ktra2php/carts/add';
-            
-            // Lấy thông tin tên sách từ phần tử cha gần nhất
-            const productItem = this.closest('.product-item');
-            const bookTitle = productItem ? productItem.querySelector('.product-info h3 a').textContent : 'sản phẩm';
-            
+
             // Gửi yêu cầu AJAX
-            fetch(url, {
+            const url = typeof baseUrl !== 'undefined' ? baseUrl + '/cart/add' : '/cart/add';
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                 },
-                body: `book_id=${bookId}&quantity=${quantity}`
-            })
-            .then(response => {
-                console.log('Trạng thái phản hồi:', response.status);
-                return response.json();
-            })
-            .then(data => {
-                console.log('Dữ liệu phản hồi:', data);
-                if (data.success) {
-                    // Cập nhật số lượng sản phẩm trong giỏ hàng trên header nếu có
-                    const cartCountElement = document.querySelector('.cart-count');
-                    if (cartCountElement && data.cart_count) {
-                        cartCountElement.textContent = data.cart_count;
-                    }
-                    
-                    // Hiển thị thông báo thêm vào giỏ hàng thành công
+                body: JSON.stringify({ 
+                    book_id: bookId, 
+                    quantity: quantity 
+                })
+            });
+
+            const data = await response.json();
+            
+            if (data.success) {
+                // Cập nhật số lượng sản phẩm trong giỏ hàng
+                const cartCountElement = document.querySelector('.cart-count');
+                if (cartCountElement && data.cartCount) {
+                    cartCountElement.textContent = data.cartCount;
+                    cartCountElement.style.display = 'block';
+                }
+
+                if (redirectToCart) {
+                    // Nếu là "Mua ngay" thì chuyển đến trang giỏ hàng
+                    window.location.href = `${baseUrl}/cart`;
+                } else {
+                    // Nếu là "Thêm vào giỏ hàng" thì hiển thị thông báo
+                    const productItem = document.querySelector(`[data-book-id="${bookId}"]`).closest('.product-item');
+                    const bookTitle = productItem ? productItem.querySelector('.product-info h3 a').textContent : 'sản phẩm';
+
                     Swal.fire({
                         title: 'Thêm vào giỏ hàng thành công!',
                         text: `Đã thêm "${bookTitle}" vào giỏ hàng`,
@@ -101,30 +95,41 @@ document.addEventListener('DOMContentLoaded', function() {
                             window.location.href = `${baseUrl}/cart`;
                         }
                     });
-                } else {
-                    // Hiển thị thông báo khi có lỗi xảy ra
-                    Swal.fire({
-                        title: 'Có lỗi xảy ra!',
-                        text: data.message || 'Không thể thêm sản phẩm vào giỏ hàng',
-                        icon: 'error',
-                        confirmButtonText: 'Đóng',
-                        confirmButtonColor: '#2a5a4c'
-                    });
                 }
-            })
-            .catch(error => {
-                console.error('Lỗi:', error);
-                // Hiển thị thông báo khi không thể kết nối server
-                Swal.fire({
-                    title: 'Có lỗi xảy ra!',
-                    text: 'Không thể kết nối đến máy chủ',
-                    icon: 'error',
-                    confirmButtonText: 'Đóng',
-                    confirmButtonColor: '#2a5a4c'
-                });
+                return true;
+            } else {
+                throw new Error(data.message || 'Không thể thêm sản phẩm vào giỏ hàng');
+            }
+        } catch (error) {
+            console.error('Lỗi:', error);
+            Swal.fire({
+                title: 'Có lỗi xảy ra!',
+                text: error.message || 'Không thể kết nối đến máy chủ',
+                icon: 'error',
+                confirmButtonText: 'Đóng',
+                confirmButtonColor: '#2a5a4c'
             });
+            return false;
+        }
+    }
+
+    // Xử lý nút "Thêm vào giỏ hàng"
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', async function(e) {
+            e.preventDefault();
+            const bookId = this.dataset.bookId;
+            await addToCart(bookId, 1, false);
         });
     });
 
-
+    // Xử lý nút "Mua ngay"
+    const buyNowButtons = document.querySelectorAll('.buy-now');
+    buyNowButtons.forEach(button => {
+        button.addEventListener('click', async function(e) {
+            e.preventDefault();
+            const bookId = this.dataset.bookId;
+            await addToCart(bookId, 1, true);
+        });
+    });
 });

@@ -297,36 +297,36 @@ class CartController extends Controller
             ->first();
 
             if (!$cartDetail) {
-                return response()->json(['error' => 'Không tìm thấy sản phẩm trong giỏ hàng'], 404);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Không tìm thấy sản phẩm trong giỏ hàng'
+                ], 404);
             }
 
             $cart = $cartDetail->gioHang;
             $cartDetail->delete();
 
-            // Cập nhật tổng tiền giỏ hàng
-            $cart->capNhatTongTien();
-
-            // Tính lại tổng tiền
+            // Tính lại tổng tiền giỏ hàng
             $cartItems = ChiTietGioHang::where('id_gio_hang', $cart->id)->get();
             $subTotal = $cartItems->sum('thanh_tien');
             $vat = $subTotal * 0.1;
             $shipping = $subTotal >= 500000 ? 0 : 30000;
-            $orderTotal = $subTotal + $vat + $shipping;
+            $total = $subTotal + $vat + $shipping;
+            $cartCount = $cartItems->count();
 
             return response()->json([
+                'success' => true,
                 'message' => 'Đã xóa sản phẩm khỏi giỏ hàng',
-                'cartItems' => $cartItems,
                 'subTotal' => $subTotal,
                 'vat' => $vat,
                 'shipping' => $shipping,
-                'orderTotal' => $orderTotal,
-                'free_shipping_threshold' => 500000,
-                'is_empty' => $cartItems->isEmpty()
+                'total' => $total,
+                'cartCount' => $cartCount
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'error' => 'Có lỗi xảy ra',
-                'message' => $e->getMessage()
+                'success' => false,
+                'message' => 'Có lỗi xảy ra: ' . $e->getMessage()
             ], 500);
         }
     }
