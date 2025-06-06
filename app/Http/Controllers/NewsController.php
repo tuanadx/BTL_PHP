@@ -6,23 +6,30 @@ use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    public function show($slug)
+    public function nhanam()
     {
-        // Map slug to view file
-        $viewMap = [
-            'nhanam' => 'news.nhanam',
-            'ai-doc-cung-ta' => 'news.ai_doc_cung_ta',
-            'review-bao-chi' => 'news.review_bao_chi',
-            'reader-reviews' => 'news.reader_reviews',
-            'editor-recommendations' => 'news.editor_recommendations'
-        ];
+        return view('news.nhanam');
+    }
 
-        // Check if slug exists in map
-        if (!isset($viewMap[$slug])) {
-            abort(404);
-        }
+    public function readerReviews()
+    {
+        // We'll add logic to fetch and paginate reviews here later
+        // For now, return the view
+        return view('news.reader_reviews');
+    }
 
-        // Return the corresponding view
-        return view($viewMap[$slug]);
+    public function reviewBaoChi()
+    {
+        return view('news.review_bao_chi');
+    }
+
+    public function editorRecommendations()
+    {
+        return view('news.editor_recommendations');
+    }
+
+    public function aiDocCungTa()
+    {
+        return view('news.ai_doc_cung_ta');
     }
 }
