@@ -1,11 +1,14 @@
 @extends('layouts.app')
+
+@section('title', 'Về Green Book')
+
 @section('content')
     <!-- Breadcrumb -->
     <div class="breadcrumb">
         <div class="container">
             <ul>
                 <li><a href="{{ url('/') }}">Trang chủ</a></li>
-                <li class="active">Về Nhã Nam</li>
+                <li class="active">Về Green Book</li>
             </ul>
         </div>
     </div>
@@ -14,17 +17,17 @@
         <div class="container">
             <div class="row">
                 <div class="content-page rte offset-lg-1 offset-xl-2 col-xl-8 col-lg-10 col-md-12 col-sm-12 col-12">
-                    <h1 class="title-block-page">Về Nhã Nam</h1>
+                    <h1 class="title-block-page">Về Green Book</h1>
                     <p style="margin-bottom: 11px; text-align: justify;">&nbsp;</p>
                     <p style="margin-bottom: 11px; text-align: justify;"><img data-thumb="original" original-height="540" original-width="850" src="//bizweb.dktcdn.net/100/363/455/files/untitled-design-1.png?v=1695720988683"></p>
                     <p style="margin-bottom: 11px; text-align: justify;">&nbsp;</p>
-                    <p style="margin-bottom: 11px; text-align: justify;"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif"><strong><span style="font-family:Arial,Helvetica,sans-serif;">Nhã Nam</span></strong>, tên đầy đủ là Công ty Cổ phần Văn hóa và Truyền thông Nhã Nam,&nbsp;gia nhập thị trường sách Việt Nam vào tháng 2 năm 2005 với tác phẩm "<em>Balzac và cô bé thợ may Trung hoa</em>" của Đới Tư Kiệt.</span></span></p>
+                    <p style="margin-bottom: 11px; text-align: justify;"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif"><strong><span style="font-family:Arial,Helvetica,sans-serif;">Green Book</span></strong>, tên đầy đủ là Công ty Cổ phần Văn hóa và Truyền thông Green Book,&nbsp;gia nhập thị trường sách Việt Nam vào tháng 2 năm 2005 với tác phẩm "<em>Balzac và cô bé thợ may Trung hoa</em>" của Đới Tư Kiệt.</span></span></p>
                     <p style="margin-bottom: 11px; text-align: justify;"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">Ngay từ cuốn sách đầu tiên, độc giả đã dành sự quan tâm và yêu mến cho một thương hiệu sách mới mẻ mang trong mình khát vọng góp phần tạo lập diện mạo mới cho xuất bản văn học tại Việt Nam.</span></span></p>
-                    <p style="margin-bottom: 11px; text-align: justify;"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">Sau thành công vang dội của <em>Nhật ký Đặng Thùy Trâm</em> với gần 500,000 bản sách được phát hành, phá mọi kỷ lục về xuất bản trước đó, kéo theo một loạt những hiệu ứng xã hội và dư luận có ý nghĩa, Nhã Nam đã không ngừng giới thiệu với độc giả Việt Nam những&nbsp;cuốn sách văn học nước ngoài giá trị, thu hút nhiều tầng lớp độc giả. </span></span></p>
-                    <p style="margin-bottom: 11px; text-align: justify;"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">Sách của Nhã Nam nổi bật bởi nội dung văn học tinh tế, bởi vẻ đẹp của thiết kế tinh tế, bởi sự chăm chút kỹ lưỡng cho mỗi cuốn sách.</span></span></p>
-                    <p style="margin-bottom: 11px; text-align: justify;"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">Nhã Nam, trên thực tế, đã trở thành một người bạn tinh thần, người định hướng đọc sách cho rất nhiều bạn trẻ, là cầu nối giữa độc giả Việt Nam với nền văn hóa đọc mênh mông của thế giới.</span></span></p>
-                    <p style="margin-bottom: 11px; text-align: justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Song song với dòng sách văn học vốn là thế mạnh, với sự trưởng thành mạnh mẽ của tổ chức, Nhã Nam đã mở rộng sự quan tâm sang các mảng sách non-fiction như lịch sử, triết học, khoa học, sách về các vấn đề xã hội, văn hóa đương đại, sách khai trí, tham khảo, triết lý<span style="margin-bottom:11px;text-align:justify;"> sống... Trong lĩnh vực này, Nhã Nam đã trở thành nhà xuất bản của những tác gia quan trọng trên thị trường xuất bản thế giới hiện nay: Đức Đạt Lai Lạt Ma, Deepak Chopra, Don Miguel Ruiz, Naomi Klein, Elisabeth Gilbert... </span></span></span></p>
-                    <p><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Công ty Cổ phần Văn hóa và Truyền thông Nhã Nam đã được trao nhiều danh hiệu và giải thưởng như:</span></span></span></p>
+                    <p style="margin-bottom: 11px; text-align: justify;"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">Sau thành công vang dội của <em>Nhật ký Đặng Thùy Trâm</em> với gần 500,000 bản sách được phát hành, phá mọi kỷ lục về xuất bản trước đó, kéo theo một loạt những hiệu ứng xã hội và dư luận có ý nghĩa, Green Book đã không ngừng giới thiệu với độc giả Việt Nam những&nbsp;cuốn sách văn học nước ngoài giá trị, thu hút nhiều tầng lớp độc giả. </span></span></p>
+                    <p style="margin-bottom: 11px; text-align: justify;"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">Sách của Green Book nổi bật bởi nội dung văn học tinh tế, bởi vẻ đẹp của thiết kế tinh tế, bởi sự chăm chút kỹ lưỡng cho mỗi cuốn sách.</span></span></p>
+                    <p style="margin-bottom: 11px; text-align: justify;"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">Green Book, trên thực tế, đã trở thành một người bạn tinh thần, người định hướng đọc sách cho rất nhiều bạn trẻ, là cầu nối giữa độc giả Việt Nam với nền văn hóa đọc mênh mông của thế giới.</span></span></p>
+                    <p style="margin-bottom: 11px; text-align: justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Song song với dòng sách văn học vốn là thế mạnh, với sự trưởng thành mạnh mẽ của tổ chức, Green Book đã mở rộng sự quan tâm sang các mảng sách non-fiction như lịch sử, triết học, khoa học, sách về các vấn đề xã hội, văn hóa đương đại, sách khai trí, tham khảo, triết lý<span style="margin-bottom:11px;text-align:justify;"> sống... Trong lĩnh vực này, Green Book đã trở thành nhà xuất bản của những tác gia quan trọng trên thị trường xuất bản thế giới hiện nay: Đức Đạt Lai Lạt Ma, Deepak Chopra, Don Miguel Ruiz, Naomi Klein, Elisabeth Gilbert... </span></span></span></p>
+                    <p><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Công ty Cổ phần Văn hóa và Truyền thông Green Book đã được trao nhiều danh hiệu và giải thưởng như:</span></span></span></p>
                     <p><br>
                     <span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;"><strong>GIẢI THƯỞNG CHO DOANH NGHIỆP</strong></span></span></span></p>
                     <ul>
@@ -32,7 +35,7 @@
                     </ul>
                     <p><strong><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">GIẢI THƯỞNG CHO CÁ NHÂN</span></span></span></strong></p>
                     <ul>
-                        <li style="margin-bottom: 11px; text-align: justify;"><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">2018: Ngài Étienne Rolland-Piègue, Tham tán hợp tác và hoạt động văn hóa Đại sứ quán Pháp tại Việt Nam, đã trao tặng Huân chương Hiệp sĩ Văn học và Nghệ thuật cho ông Nguyễn Nhật Anh, Tổng Giám đốc Công ty Cổ phần Văn hóa và Truyền thông Nhã Nam.</span></span></span></li>
+                        <li style="margin-bottom: 11px; text-align: justify;"><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">2018: Ngài Étienne Rolland-Piègue, Tham tán hợp tác và hoạt động văn hóa Đại sứ quán Pháp tại Việt Nam, đã trao tặng Huân chương Hiệp sĩ Văn học và Nghệ thuật cho ông Nguyễn Nhật Anh, Tổng Giám đốc Công ty Cổ phần Văn hóa và Truyền thông Green Book.</span></span></span></li>
                     </ul>
                     <p><strong><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">GIẢI THƯỞNG CHO SÁCH</span></span></span></strong></p>
                     <p><strong><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Giải Sách Hay</span></span></span></strong></p>
@@ -86,12 +89,12 @@
                     <p><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;"><strong>Giải Sách Quốc gia</strong><br>
                     <strong>2020</strong></span></span></span></p>
                     <ul>
-                        <li style="margin-bottom: 11px; text-align: justify;"><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Giải C: Bộ sách Giáo dục đa giác quan (4 cuốn): Ú òa, sa mạc và nước xiết; Ú òa, rừng rậm và tuyết phủ; Ái chà, kỳ thú rừng xanh; Ái chà, bí mật vườn nhà. Tác giả: Pavla Hanácková. Minh họa: Linh Dao, Irene Gough. Người dịch: Hoàng My. NXB Hà Nội và Công ty Văn hóa và Truyền thông Nhã Nam liên kết xuất bản.</span></span></span></li>
+                        <li style="margin-bottom: 11px; text-align: justify;"><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Giải C: Bộ sách Giáo dục đa giác quan (4 cuốn): Ú òa, sa mạc và nước xiết; Ú òa, rừng rậm và tuyết phủ; Ái chà, kỳ thú rừng xanh; Ái chà, bí mật vườn nhà. Tác giả: Pavla Hanácková. Minh họa: Linh Dao, Irene Gough. Người dịch: Hoàng My. NXB Hà Nội và Công ty Văn hóa và Truyền thông Green Book liên kết xuất bản.</span></span></span></li>
                     </ul>
                     <p><strong><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">2021</span></span></span></strong></p>
                     <ul>
-                        <li style="margin-bottom: 11px; text-align: justify;"><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Giải B: Tập thơ Bài thơ của một người yêu nước mình. Tác giả: Trần Vàng Sao. NXB Hà Nội và Công ty Văn hóa và Truyền thông Nhã Nam liên kết xuất bản.</span></span></span></li>
-                        <li style="margin-bottom: 11px; text-align: justify;"><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Giải B: Nghệ thuật Huế. Tác giả: Léopold Cadière. NXB Thế giới và Công ty Văn hóa và Truyền thông Nhã Nam liên kết xuất bản.</span></span></span></li>
+                        <li style="margin-bottom: 11px; text-align: justify;"><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Giải B: Tập thơ Bài thơ của một người yêu nước mình. Tác giả: Trần Vàng Sao. NXB Hà Nội và Công ty Văn hóa và Truyền thông Green Book liên kết xuất bản.</span></span></span></li>
+                        <li style="margin-bottom: 11px; text-align: justify;"><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Giải B: Nghệ thuật Huế. Tác giả: Léopold Cadière. NXB Thế giới và Công ty Văn hóa và Truyền thông Green Book liên kết xuất bản.</span></span></span></li>
                     </ul>
                     <p>&nbsp;</p>
                     <p><strong><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Giải thưởng của Hội Nhà văn Việt Nam</span></span></span></strong></p>
@@ -113,7 +116,7 @@
                     <p>&nbsp;</p>
                     <ul></ul>
                     <p><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">***</span></span></span></p>
-                    <p><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Hiểu thời đại đang sống thông qua sách, song hành với những biến chuyển sâu sắc trong lòng xã hội bằng những hoạt động xuất bản miệt mài và quả cảm, con đường Nhã Nam đã chọn để đi sẽ còn dài. Nhiều khó khăn, thử thách đang ở phía trước. Bước qua thời kỳ sơ khai với những bài học và những kinh nghiệm đầu tiên, Nhã Nam giờ đã sẵn sàng cho một chặng đường phát triển mới. Và chúng tôi muốn hoàn thiện mình trong sự cầu thị và cẩn trọng. Tất cả vì một gia sản sách to lớn, có sức sống dài lâu, có ý nghĩa với nhiều thế hệ bạn đọc.</span></span></span></p>
+                    <p><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Hiểu thời đại đang sống thông qua sách, song hành với những biến chuyển sâu sắc trong lòng xã hội bằng những hoạt động xuất bản miệt mài và quả cảm, con đường Green Book đã chọn để đi sẽ còn dài. Nhiều khó khăn, thử thách đang ở phía trước. Bước qua thời kỳ sơ khai với những bài học và những kinh nghiệm đầu tiên, Green Book giờ đã sẵn sàng cho một chặng đường phát triển mới. Và chúng tôi muốn hoàn thiện mình trong sự cầu thị và cẩn trọng. Tất cả vì một gia sản sách to lớn, có sức sống dài lâu, có ý nghĩa với nhiều thế hệ bạn đọc.</span></span></span></p>
                     <p><em><strong><span style="margin-bottom:11px;text-align:justify;"><span style="line-height:107%;"><span style="font-family:Calibri,sans-serif;">Bởi vì sách là thế giới.</span></span></span></strong></em></p>
                     <p style="text-align: justify;">&nbsp;</p>
                 </div>

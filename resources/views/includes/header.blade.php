@@ -34,7 +34,7 @@
                     <div class="col-lg-2 col-md-3">
                         <div class="logo">
                             <a href="{{ url('/') }}">
-                                <img src="https://ext.same-assets.com/3715259319/3110586656.png" alt="Nhã Nam">
+                                <img src="https://ext.same-assets.com/3715259319/3110586656.png" alt="Green Book">
                             </a>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                                         <a class="a-img caret-down" href="{{ route('news.nhanam') }}" title="Tin Sách">Tin Sách</a>
                                         <i class="fa fa-angle-down"></i>
                                         <ul class="item_small">
-                                            <li><a href="{{ route('news.nhanam') }}" title="Tin tức Nhã Nam">Tin Nhã Nam</a></li>
+                                            <li><a href="{{ route('news.nhanam') }}" title="Tin tức Green Book">Tin Green Book</a></li>
                                             <li><a href="{{ route('news.reader_reviews') }}" title="Review sách của độc giả">Review sách của độc giả</a></li>
                                             <li><a href="{{ route('news.review_bao_chi') }}" title="Review sách trên báo chí">Review sách trên báo chí</a></li>
                                             <li><a href="{{ route('news.editor_recommendations') }}" title="Biên tập viên giới thiệu">Biên tập viên giới thiệu</a></li>
@@ -66,17 +66,10 @@
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="a-img" href="{{ url('/gioi-thieu') }}" title="Về Nhã Nam">Về Nhã Nam</a>
+                                        <a class="a-img" href="{{ url('/gioi-thieu') }}" title="Về Green Book">Về Green Book</a>
                                     </li>
                                     <li class="nav-item has-child">
-                                        <a class="a-img caret-down" href="{{ url('/lien-he') }}" title="Liên hệ">Liên hệ</a>
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="item_small">
-                                            <li><a href="{{ url('/he-thong-hieu-sach') }}">Hệ Thống Hiệu Sách</a></li>
-                                            <li><a href="{{ url('/he-thong-cua-hang') }}">Hệ Thống Phát Hành</a></li>
-                                            <li><a href="{{ url('/gui-thu-cho-nha-nam') }}">Gửi Thư Cho Nhã Nam</a></li>
-                                            <li><a href="{{ url('/tuyen-dung') }}">Tuyển Dụng</a></li>
-                                        </ul>
+                                        <a class="a-img caret-down" href="{{ url('/he-thong-hieu-sach') }}" title="Liên hệ">Hệ thống</a>
                                     </li>
                                 </ul>
                             </nav>

@@ -25,7 +25,7 @@
                 <div class="footer-columns">
                     <div class="footer-column">
                         <div class="footer-logo">
-                            <img src="https://ext.same-assets.com/3715259319/3110586656.png" alt="Nhã Nam">
+                            <img src="https://ext.same-assets.com/3715259319/3110586656.png" alt="Green Book">
                             <p>Đời vì sách là thế giới</p>
                         </div>
                         <div class="footer-contact">
@@ -38,9 +38,8 @@
                     <div class="footer-column">
                         <h4>Giới thiệu</h4>
                         <ul>
-                            <li><a href="/gioi-thieu">Về Nhã Nam</a></li>
+                            <li><a href="/gioi-thieu">Về Green Book</a></li>
                             <li><a href="/he-thong-hieu-sach">Hệ thống hiệu sách</a></li>
-                            <li><a href="/he-thong-cua-hang">Hệ thống phát hành</a></li>
                             <li><a href="/tuyen-dung">Tuyển dụng</a></li>
                             <li><a href="/lien-he-voi-chung-toi">Liên hệ với chúng tôi</a></li>
                         </ul>

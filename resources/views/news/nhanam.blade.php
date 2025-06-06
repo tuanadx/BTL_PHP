@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tin Nhã Nam')
+@section('title', 'Tin Green Book')
 
 @section('styles')
     <link href="{{ asset('css/news.css') }}" rel="stylesheet">
@@ -12,7 +12,7 @@
         <div class="container">
             <ul>
                 <li><a href="{{ url('/') }}">Trang chủ</a></li>
-                <li class="active">Tin Nhã Nam</li>
+                <li class="active">Tin Green Book</li>
             </ul>
         </div>
     </div>
@@ -21,7 +21,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-12">
-                    <h1 class="title-module">Tin Nhã Nam</h1>
+                    <h1 class="title-module">Tin Green Book</h1>
 
                     <div class="row">
                         {{-- News articles will be listed here --}}
@@ -57,11 +57,11 @@
 
                         <div class="col-md-4 col-12 col-lg-4 col-xl-4">
                             <article class="item_blog_base">
-                                <a class="thumb radius-5" href="/hoi-sach-nha-nam-chao-he-2025" title="HỘI SÁCH NHÃ NAM CHÀO HÈ 2025">
-                                    <img src="{{ asset('https://bizweb.dktcdn.net/100/363/455/articles/489006758-1079586880875712-661463280947496865-n.jpg?v=1744100699603') }}" alt="HỘI SÁCH NHÃ NAM CHÀO HÈ 2025" class="lazyload img-responsive loaded" data-was-processed="true">
+                                <a class="thumb radius-5" href="/hoi-sach-nha-nam-chao-he-2025" title="HỘI SÁCH GREEN BOOK CHÀO HÈ 2025">
+                                    <img src="{{ asset('https://bizweb.dktcdn.net/100/363/455/articles/489006758-1079586880875712-661463280947496865-n.jpg?v=1744100699603') }}" alt="HỘI SÁCH GREEN BOOK CHÀO HÈ 2025" class="lazyload img-responsive loaded" data-was-processed="true">
                                 </a>
                                 <div class="content_blog">
-                                    <h3><a href="/hoi-sach-nha-nam-chao-he-2025" title="HỘI SÁCH NHÃ NAM CHÀO HÈ 2025" class="a-title">HỘI SÁCH NHÃ NAM CHÀO HÈ 2025</a></h3>
+                                    <h3><a href="/hoi-sach-nha-nam-chao-he-2025" title="HỘI SÁCH GREEN BOOK CHÀO HÈ 2025" class="a-title">HỘI SÁCH GREEN BOOK CHÀO HÈ 2025</a></h3>
                                     <span>
                                         Thứ Ba,
                                         08/04/2025
@@ -177,11 +177,11 @@
 
                         <div class="col-md-4 col-12 col-lg-4 col-xl-4">
                             <article class="item_blog_base">
-                                <a class="thumb radius-5" href="/hoi-sach-xuan-nha-nam-nam-2025" title="Rộn ràng Hội sách Xuân Nhã Nam năm 2025">
-                                    <img src="{{ asset('https://bizweb.dktcdn.net/100/363/455/articles/474668297-1020349856799415-3183947564088782807-n.jpg?v=1737535559097') }}" alt="Rộn ràng Hội sách Xuân Nhã Nam năm 2025" class="lazyload img-responsive">
+                                <a class="thumb radius-5" href="/hoi-sach-xuan-nha-nam-nam-2025" title="Rộn ràng Hội sách Xuân Green Book năm 2025">
+                                    <img src="{{ asset('https://bizweb.dktcdn.net/100/363/455/articles/474668297-1020349856799415-3183947564088782807-n.jpg?v=1737535559097') }}" alt="Rộn ràng Hội sách Xuân Green Book năm 2025" class="lazyload img-responsive">
                                 </a>
                                 <div class="content_blog">
-                                    <h3><a href="/hoi-sach-xuan-nha-nam-nam-2025" title="Rộn ràng Hội sách Xuân Nhã Nam năm 2025" class="a-title">Rộn ràng Hội sách Xuân Nhã Nam năm 2025</a></h3>
+                                    <h3><a href="/hoi-sach-xuan-nha-nam-nam-2025" title="Rộn ràng Hội sách Xuân Green Book năm 2025" class="a-title">Rộn ràng Hội sách Xuân Green Book năm 2025</a></h3>
                                     <span>
                                         Thứ Tư,
                                         22/01/2025
@@ -192,11 +192,11 @@
 
                         <div class="col-md-4 col-12 col-lg-4 col-xl-4">
                             <article class="item_blog_base">
-                                <a class="thumb radius-5" href="/chuong-trinh-tu-thien-mua-xuan-ta-lung-mang-sach-cho-em-cung-nha-nam-xay-dung-tu-sach-va-lan-toa-van-hoa-doc-toi-hoc-sinh-vung-cao" title="Chương trình từ thiện &quot;Mùa xuân Tả Lủng - Mang sách cho em&quot;: Cùng Nhã Nam xây dựng tủ sách và lan tỏa văn hóa đọc tới học sinh vùng cao">
-                                    <img src="{{ asset('https://bizweb.dktcdn.net/100/363/455/articles/z6213865224494-00a387c64091daae8adec279ff5285e3.jpg?v=1736765764973') }}" alt="Chương trình từ thiện &quot;Mùa xuân Tả Lủng - Mang sách cho em&quot;: Cùng Nhã Nam xây dựng tủ sách và lan tỏa văn hóa đọc tới học sinh vùng cao" class="lazyload img-responsive">
+                                <a class="thumb radius-5" href="/chuong-trinh-tu-thien-mua-xuan-ta-lung-mang-sach-cho-em-cung-nha-nam-xay-dung-tu-sach-va-lan-toa-van-hoa-doc-toi-hoc-sinh-vung-cao" title="Chương trình từ thiện &quot;Mùa xuân Tả Lủng - Mang sách cho em&quot;: Cùng Green Book xây dựng tủ sách và lan tỏa văn hóa đọc tới học sinh vùng cao">
+                                    <img src="{{ asset('https://bizweb.dktcdn.net/100/363/455/articles/z6213865224494-00a387c64091daae8adec279ff5285e3.jpg?v=1736765764973') }}" alt="Chương trình từ thiện &quot;Mùa xuân Tả Lủng - Mang sách cho em&quot;: Cùng Green Book xây dựng tủ sách và lan tỏa văn hóa đọc tới học sinh vùng cao" class="lazyload img-responsive">
                                 </a>
                                 <div class="content_blog">
-                                    <h3><a href="/chuong-trinh-tu-thien-mua-xuan-ta-lung-mang-sach-cho-em-cung-nha-nam-xay-dung-tu-sach-va-lan-toa-van-hoa-doc-toi-hoc-sinh-vung-cao" title="Chương trình từ thiện &quot;Mùa xuân Tả Lủng - Mang sách cho em&quot;: Cùng Nhã Nam xây dựng tủ sách và lan tỏa văn hóa đọc tới học sinh vùng cao" class="a-title">Chương trình từ thiện "Mùa xuân Tả Lủng - Mang sách cho em": Cùng Nhã Nam xây dựng tủ sách và lan tỏa văn hóa đọc tới học sinh vùng cao</a></h3>
+                                    <h3><a href="/chuong-trinh-tu-thien-mua-xuan-ta-lung-mang-sach-cho-em-cung-nha-nam-xay-dung-tu-sach-va-lan-toa-van-hoa-doc-toi-hoc-sinh-vung-cao" title="Chương trình từ thiện &quot;Mùa xuân Tả Lủng - Mang sách cho em&quot;: Cùng Green Book xây dựng tủ sách và lan tỏa văn hóa đọc tới học sinh vùng cao" class="a-title">Chương trình từ thiện "Mùa xuân Tả Lủng - Mang sách cho em": Cùng Green Book xây dựng tủ sách và lan tỏa văn hóa đọc tới học sinh vùng cao</a></h3>
                                     <span>
                                         Thứ Hai,
                                         13/01/2025
