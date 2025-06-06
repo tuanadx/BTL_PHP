@@ -125,3 +125,9 @@ Route::get('/gioi-thieu', [HomeController::class, 'about'])->name('about');
 // Stores page route
 Route::get('/he-thong-hieu-sach', [HomeController::class, 'stores'])->name('stores');
 
+// News routes
+Route::get('/tin-nha-nam/{slug}', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
+
+// Author routes
+Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index'])->name('authors.index');
+

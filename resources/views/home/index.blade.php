@@ -14,12 +14,366 @@
     </div>
 </div>
 
-<!-- Banner -->
-<div class="banner">
-    <div class="container">
-        <img src="https://ext.same-assets.com/3715259319/2232221781.jpeg" alt="Banner">
+
+<title>Section 1 - Sự kiện & Tin tức</title>
+  <title>Section 1 - Tin Tức Nhã Nam</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f9f4;
+    }
+
+    .section-news {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .container-news {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    /* Slider bên trái */
+    .news-slider {
+      flex: 2;
+      min-width: 300px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 300%;
+    }
+
+    .slide {
+      width: 100%;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .slide img {
+      width: 750px;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .slide-info {
+      background: white;
+      padding: 15px 20px;
+      margin-top: -4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .slide-info h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #1a1a1a;
+    }
+
+    .slide-info p {
+      font-size: 14px;
+      color: #888;
+      margin-top: 6px;
+    }
+
+    /* Danh sách bài viết bên phải */
+    .news-list {
+      flex: 1;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .news-item {
+      display: flex;
+      gap: 15px;
+      background: #fff;
+      padding: 12px;
+      border-radius: 6px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .news-item:hover {
+      background-color: #d0f3ec;
+    }
+
+    .news-item img {
+      width: 90px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .news-item h4 {
+      font-size: 15px;
+      margin: 0;
+      color: #1c1c1c;
+    }
+
+    .news-item p {
+      font-size: 13px;
+      color: #777;
+      margin-top: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .container-news {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+<section class="section-news">
+    <div class="container-news">
+
+      <!-- Slider trái -->
+      <div class="news-slider">
+        <div class="slides" id="slides">
+          <!-- Slide 1 -->
+          <div class="slide">
+            <a href="baibao1.html">
+            <img src="image/1.webp" alt="">
+            <div class="slide-info">
+              <h3>HỘI SÁCH NHÃ NAM CHÀO HÈ 2025</h3>
+              <p>Thứ Ba, 08/04/2025</p>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="slide">
+            <a href="baibao2.html">
+            <img src="image/2.webp" alt="">
+            <div class="slide-info">
+              <h3>SỰ KIỆN ĐẶC BIỆT NHÃ NAM 2025</h3>
+              <p>Thứ Sáu, 12/04/2025</p>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="slide">
+            <a href="baibao3.html">
+            <img src="image/3.webp" alt="">
+            <div class="slide-info">
+              <h3>HỘI THẢO GIỚI THIỆU SÁCH MỚI</h3>
+              <p>Thứ Bảy, 20/04/2025</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bài viết phải -->
+      <div class="news-list">
+        <a class="news-item" href="baibao4.html">
+          <img src="image/4.webp" alt="">
+          <div>
+            <h4>Hành trình khám phá sự phát triển của nghệ thuật âm thanh qua các</h4>
+            <p>Thứ Hai, 17/03/2025</p>
+          </div>
+        </a>
+        <a class="news-item" href="baibao5.html">
+          <img src="image/5.webp" alt="">
+          <div>
+            <h4>Con người và đất đai</h4>
+            <p>Thứ Hai, 17/03/2025</p>
+          </div>
+        </a>
+        <a class="news-item" href="baibao6.html">
+          <img src="image/6.webp" alt="">
+          <div>
+            <h4>“Pha cà phê ngon tại nhà” - Cẩm nang toàn diện để pha cà phê</h4>
+            <p>Chủ Nhật, 16/02/2025</p>
+          </div>
+        </a>
+        <a class="news-item" href="baibao7.html">
+          <img src="image/7.webp" alt="">
+          <div>
+            <h4>MAUS - làm thế nào để nói về Holocaust?</h4>
+            <p>Thứ Hai, 20/01/2025</p>
+          </div>
+        </a>
+      </div>
+
     </div>
+  </section>
+
+  <!-- Script chạy slider -->
+  <script>
+    let index = 0;
+    const slides = document.getElementById('slides');
+    const totalSlides = slides.children.length;
+
+    setInterval(() => {
+      index = (index + 1) % totalSlides;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }, 4000);
+  </script>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+  <title>Các tác giả</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .section-authors {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+
+    .section-authors h2 {
+      font-size: 24px;
+      font-weight: bold;
+      color: #207c2e;
+      border-bottom: 2px solid #207c2e;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .view-more {
+      float: right;
+      font-size: 14px;
+      color: #207c2e;
+      text-decoration: none;
+      margin-top: 8px;
+    }
+
+    .view-more i {
+      margin-left: 4px;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .author-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 8px;
+      background-color: #e3e5e6;
+    }
+
+    .author-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .author-name {
+      font-size: 15px;
+      color: #333;
+      font-weight: 500;
+    }
+  </style>
+<body>
+
+<div class="section-authors">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>Các tác giả</h2>
+    <a href="#" class="view-more">Xem thêm <i class="fas fa-arrow-right"></i></a>
+  </div>
+
+  <div class="swiper mySwiperTacgia">
+    <div class="swiper-wrapper">
+
+      <!-- Tác giả 1 -->
+      <div class="swiper-slide">
+        <div class="author-avatar">
+          <img src="image/tgia/1&2.webp" alt="Kolya Bùi">
+        </div>
+        <div class="author-name">Kolya Bùi</div>
+      </div>
+
+      <!-- Tác giả 2 -->
+      <div class="swiper-slide">
+        <div class="author-avatar">
+          <img src="image/tgia/1&2.webp" alt="Ngọ Diệp">
+        </div>
+        <div class="author-name">Ngọ Diệp</div>
+      </div>
+
+      <!-- Tác giả 3 -->
+      <div class="swiper-slide">
+        <div class="author-avatar">
+          <img src="image/tgia/3.webp" alt="Timothy Corrigan">
+        </div>
+        <div class="author-name">Timothy Corrigan</div>
+      </div>
+
+      <!-- Tác giả 4 -->
+      <div class="swiper-slide">
+        <div class="author-avatar">
+          <img src="image/tgia/4.webp" alt="Wu Ming-Yi">
+        </div>
+        <div class="author-name">Wu Ming-Yi</div>
+      </div>
+
+      <!-- Tác giả 5 -->
+      <div class="swiper-slide">
+        <div class="author-avatar">
+          <img src="image/tgia/5.webp" alt="Maxime Pérez">
+        </div>
+        <div class="author-name">Maxime Pérez</div>
+      </div>
+
+      <!-- Tác giả 6 -->
+      <div class="swiper-slide">
+        <div class="author-avatar">
+          <img src="image/tgia/6.webp" alt="James West">
+        </div>
+        <div class="author-name">James West</div>
+      </div>
+
+    </div>
+
+    <!-- Nút điều hướng -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  const mySwiperTacgia = new Swiper(".mySwiperTacgia", {
+    slidesPerView: 4,
+    spaceBetween: 20,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    breakpoints: {
+      0: { slidesPerView: 2 },
+      640: { slidesPerView: 3 },
+      768: { slidesPerView: 4 },
+      1024: { slidesPerView: 5 }
+    }
+  });
+</script>
 
 <!-- Main Content -->
 <main class="main-content">

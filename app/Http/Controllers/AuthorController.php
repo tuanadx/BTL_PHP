@@ -7,10 +7,9 @@ use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $authors = TacGia::paginate(12);
-        return view('authors.index', compact('authors'));
+        return view('authors.index');
     }
 
     public function show($id)
