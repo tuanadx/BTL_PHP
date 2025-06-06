@@ -14,9 +14,7 @@
     </div>
     <div class="main-content">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-12">
-                    <h1 class="title-module">Hệ thống hiệu sách</h1>
+            <h1 class="title-module">Hệ thống hiệu sách</h1>
 
     <section class="page">
         <div class="container margin-top-20 margin-bottom-20">

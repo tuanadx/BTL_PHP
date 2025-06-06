@@ -72,11 +72,11 @@ class HomeController extends Controller
 
     public function about()
     {
-        return view('home.about');
+        return view('about');
     }
 
     public function stores()
     {
-        return view('home.stores');
+        return view('stores');
     }
 }

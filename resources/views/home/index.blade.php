@@ -194,7 +194,7 @@
         </div>
         <div class="product-content">
             <div class="collection-header" id="product-section">
-                <h1 class="section-title">{{ $title }}</h1>
+                <h1 class="section-title">Sách</h1>
                 <div class="collection-sorting">
                     <span>Sắp xếp theo</span>
                     <div class="sort-options">
