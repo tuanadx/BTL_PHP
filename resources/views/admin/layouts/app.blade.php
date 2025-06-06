@@ -104,6 +104,11 @@
                                 <i class="fas fa-shopping-cart"></i> <span class="ms-1 d-none d-sm-inline">Quản lý đơn hàng</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.comments.index') }}" class="nav-link px-0 align-middle text-white">
+                                <i class="fas fa-comments"></i> <span class="ms-1 d-none d-sm-inline">Quản lý bình luận</span>
+                            </a>
+                        </li>
                     </ul>
                     <hr>
                     <div class="dropdown pb-4">

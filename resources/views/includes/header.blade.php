@@ -112,14 +112,21 @@
                                         </div>
                                     </div>
                                 @else
-                                    <a href="{{ route('login') }}" class="login">
-                                        <i class="fas fa-sign-in-alt"></i>
-                                        Đăng nhập
-                                    </a>
-                                    <a href="{{ route('register') }}" class="register">
-                                        <i class="fas fa-user-plus"></i>
-                                        Đăng ký
-                                    </a>
+                                    <div class="user-dropdown">
+                                        <a href="javascript:void(0);" class="user-toggle">
+                                            <i class="fas fa-user"></i>
+                                        </a>
+                                        <div class="user-dropdown-content">
+                                            <a href="{{ route('login') }}">
+                                                <i class="fas fa-sign-in-alt"></i>
+                                                Đăng nhập
+                                            </a>
+                                            <a href="{{ route('register') }}">
+                                                <i class="fas fa-user-plus"></i>
+                                                Đăng ký
+                                            </a>
+                                        </div>
+                                    </div>
                                 @endif
                                 <a href="{{ route('cart.view') }}" class="cart">
                                     <i class="fas fa-shopping-cart"></i>
