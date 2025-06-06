@@ -1,37 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body text-center">
-                    @if($success)
-                        <div class="mb-4">
-                            <i class="fas fa-check-circle text-success" style="font-size: 64px;"></i>
-                        </div>
-                        <h2 class="card-title text-success">Thanh toán thành công!</h2>
-                        <p class="card-text">Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đã được xác nhận.</p>
-                        <div class="mt-4">
-                            <p>{{ $orderId }}</p>
-                            <p><strong>Số tiền:</strong> {{ number_format($amount) }}đ</p>
-                            <p><strong>Thời gian:</strong> {{ $paymentTime }}</p>
-                        </div>
-                    @else
-                        <div class="mb-4">
-                            <i class="fas fa-times-circle text-danger" style="font-size: 64px;"></i>
-                        </div>
-                        <h2 class="card-title text-danger">Thanh toán thất bại!</h2>
-                        <p class="card-text">{{ $message ?? 'Đã có lỗi xảy ra trong quá trình thanh toán.' }}</p>
-                    @endif
-
-                    <div class="mt-4">
-                        <a href="/" class="btn btn-primary">Về trang chủ</a>
-                        <a href="{{ route('order.list') }}" class="btn btn-success">Xem đơn hàng</a>
-                    </div>
-                </div>
-            </div>
+<div class="success-container">
+    @if($success)
+        <div class="success-icon">
+            <i class="fas fa-check"></i>
         </div>
+        <h2 class="success-title">Thanh toán thành công!</h2>
+        <p class="success-message">Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đã được xác nhận.</p>
+        
+        <div class="order-details">
+            <p><strong>Số đơn hàng:</strong> {{ $orderId }}</p>
+            <p><strong>Số tiền:</strong> {{ number_format($amount) }}đ</p>
+            <p><strong>Thời gian:</strong> {{ $paymentTime }}</p>
+        </div>
+    @else
+        <div class="success-icon" style="background: #dc3545;">
+            <i class="fas fa-times"></i>
+        </div>
+        <h2 class="success-title" style="color: #dc3545;">Thanh toán thất bại!</h2>
+        <p class="success-message">{{ $message ?? 'Đã có lỗi xảy ra trong quá trình thanh toán.' }}</p>
+    @endif
+
+    <div class="success-buttons">
+        <a href="/" class="btn-home">Về trang chủ</a>
+        <a href="{{ route('order.list') }}" class="btn-order">Xem đơn hàng</a>
     </div>
 </div>
 @endsection 
