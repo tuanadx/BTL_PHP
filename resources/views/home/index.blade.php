@@ -3,6 +3,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{{ asset('css/home-sections.css') }}">
 
 <!-- Breadcrumb -->
 <div class="breadcrumb">
@@ -14,128 +16,11 @@
     </div>
 </div>
 
-
 <title>Section 1 - Sự kiện & Tin tức</title>
-  <title>Section 1 - Tin Tức Nhã Nam</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f5f9f4;
-    }
+<title>Section 1 - Tin Tức Nhã Nam</title>
 
-    .section-news {
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .container-news {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-
-    /* Slider bên trái */
-    .news-slider {
-      flex: 2;
-      min-width: 300px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .slides {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-      width: 300%;
-    }
-
-    .slide {
-      width: 100%;
-      flex-shrink: 0;
-      position: relative;
-    }
-
-    .slide img {
-      width: 750px;
-      height: auto;
-      border-radius: 8px;
-      display: block;
-    }
-
-    .slide-info {
-      background: white;
-      padding: 15px 20px;
-      margin-top: -4px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .slide-info h3 {
-      margin: 0;
-      font-size: 20px;
-      color: #1a1a1a;
-    }
-
-    .slide-info p {
-      font-size: 14px;
-      color: #888;
-      margin-top: 6px;
-    }
-
-    /* Danh sách bài viết bên phải */
-    .news-list {
-      flex: 1;
-      min-width: 280px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .news-item {
-      display: flex;
-      gap: 15px;
-      background: #fff;
-      padding: 12px;
-      border-radius: 6px;
-      box-shadow: 0 1px 5px rgba(0,0,0,0.05);
-      text-decoration: none;
-      transition: background 0.3s;
-    }
-
-    .news-item:hover {
-      background-color: #d0f3ec;
-    }
-
-    .news-item img {
-      width: 90px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 4px;
-    }
-
-    .news-item h4 {
-      font-size: 15px;
-      margin: 0;
-      color: #1c1c1c;
-    }
-
-    .news-item p {
-      font-size: 13px;
-      color: #777;
-      margin-top: 5px;
-    }
-
-    @media (max-width: 768px) {
-      .container-news {
-        flex-direction: column;
-      }
-    }
-  </style>
-</head>
-<body>
 <section class="section-news">
     <div class="container-news">
-
       <!-- Slider trái -->
       <div class="news-slider">
         <div class="slides" id="slides">
@@ -188,7 +73,7 @@
         <a class="news-item" href="baibao6.html">
           <img src="image/6.webp" alt="">
           <div>
-            <h4>“Pha cà phê ngon tại nhà” - Cẩm nang toàn diện để pha cà phê</h4>
+            <h4>"Pha cà phê ngon tại nhà" - Cẩm nang toàn diện để pha cà phê</h4>
             <p>Chủ Nhật, 16/02/2025</p>
           </div>
         </a>
@@ -200,12 +85,11 @@
           </div>
         </a>
       </div>
-
     </div>
-  </section>
+</section>
 
-  <!-- Script chạy slider -->
-  <script>
+<!-- Script chạy slider -->
+<script>
     let index = 0;
     const slides = document.getElementById('slides');
     const totalSlides = slides.children.length;
@@ -214,83 +98,10 @@
       index = (index + 1) % totalSlides;
       slides.style.transform = `translateX(-${index * 100}%)`;
     }, 4000);
-  </script>
+</script>
 
-</body>
-
-
-
-
-
-
-
-
-
-
-  <title>Các tác giả</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff;
-      margin: 0;
-      padding: 0;
-    }
-
-    .section-authors {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 16px;
-    }
-
-    .section-authors h2 {
-      font-size: 24px;
-      font-weight: bold;
-      color: #207c2e;
-      border-bottom: 2px solid #207c2e;
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-
-    .view-more {
-      float: right;
-      font-size: 14px;
-      color: #207c2e;
-      text-decoration: none;
-      margin-top: 8px;
-    }
-
-    .view-more i {
-      margin-left: 4px;
-    }
-
-    .swiper-slide {
-      text-align: center;
-      padding: 10px;
-    }
-
-    .author-avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      overflow: hidden;
-      margin: 0 auto 8px;
-      background-color: #e3e5e6;
-    }
-
-    .author-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .author-name {
-      font-size: 15px;
-      color: #333;
-      font-weight: 500;
-    }
-  </style>
-<body>
+<title>Các tác giả</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <div class="section-authors">
   <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -300,7 +111,6 @@
 
   <div class="swiper mySwiperTacgia">
     <div class="swiper-wrapper">
-
       <!-- Tác giả 1 -->
       <div class="swiper-slide">
         <div class="author-avatar">
@@ -348,7 +158,6 @@
         </div>
         <div class="author-name">James West</div>
       </div>
-
     </div>
 
     <!-- Nút điều hướng -->
