@@ -80,6 +80,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Customer routes
     Route::get('customers/{id}', [App\Http\Controllers\Admin\CustomerController::class, 'show'])->name('customers.show');
     Route::put('customers/{id}/status', [App\Http\Controllers\Admin\CustomerController::class, 'updateStatus'])->name('customers.update-status');
+
+    // Comment management routes
+    Route::get('/comments', [App\Http\Controllers\Admin\CommentController::class, 'index'])->name('comments.index');
+    Route::delete('/comments/{id}', [App\Http\Controllers\Admin\CommentController::class, 'destroy'])->name('comments.destroy');
 });
 
 // Comment Routes
