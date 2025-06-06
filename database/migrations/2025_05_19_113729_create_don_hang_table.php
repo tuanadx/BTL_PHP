@@ -17,6 +17,8 @@ return new class extends Migration
             $table->timestamp('ngay_dat_hang')->useCurrent();
             $table->decimal('tong_tien', 10, 2);
             $table->enum('trang_thai', ['cho_xu_ly', 'dang_giao', 'da_giao', 'da_huy'])->default('cho_xu_ly');
+            $table->enum('trang_thai_thanh_toan', ['da_thanh_toan_vnpay', 'chua_thanh_toan', 'da_thanh_toan_khi_nhan_hang'])->default('chua_thanh_toan');
+            $table->text('dia_chi');
             $table->text('ghi_chu')->nullable();
             $table->timestamps();
         });

@@ -19,8 +19,10 @@ class ChiTietDonHang extends Model
     ];
 
     protected $casts = [
-        'don_gia' => 'decimal:2'
+        'don_gia' => 'decimal:0'
     ];
+
+    protected $appends = ['thanh_tien'];
 
     public function donHang()
     {

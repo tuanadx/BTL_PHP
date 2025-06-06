@@ -7,7 +7,7 @@
             <div class="col-md-8">
                 <div class="checkout-section">
                     <h2>Thông tin giao hàng</h2>
-                    <form id="checkoutForm" action="{{ route('cart.process-checkout') }}" method="POST">
+                    <form id="checkoutForm">
                         @csrf
                         <div class="mb-3">
                             <label for="ho_ten" class="form-label">Họ tên người nhận <span class="text-danger">*</span></label>
@@ -100,17 +100,37 @@
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="payment_method" id="bank_transfer" value="bank_transfer">
-                            <label class="form-check-label" for="bank_transfer">
-                                <i class="fas fa-university"></i>
-                                Chuyển khoản ngân hàng
+                            <input class="form-check-input" type="radio" name="payment_method" id="vnpay" value="vnpay">
+                            <label class="form-check-label" for="vnpay">
+                                <i class="fas fa-credit-card"></i>
+                                Thanh toán qua VNPAY
                             </label>
                         </div>
                     </div>
                     
-                    <button type="submit" class="btn-place-order" form="checkoutForm">
+                    <button type="button" class="btn-place-order" onclick="submitOrder()">
                         Đặt hàng
                     </button>
+
+                    <form id="codForm" action="{{ route('cart.process-checkout') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="ho_ten" id="cod_ho_ten">
+                        <input type="hidden" name="so_dien_thoai" id="cod_so_dien_thoai">
+                        <input type="hidden" name="email" id="cod_email">
+                        <input type="hidden" name="dia_chi" id="cod_dia_chi">
+                        <input type="hidden" name="ghi_chu" id="cod_ghi_chu">
+                        <input type="hidden" name="payment_method" value="cod">
+                    </form>
+
+                    <form id="vnpayForm" action="{{ route('payment') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="ho_ten" id="vnpay_ho_ten">
+                        <input type="hidden" name="so_dien_thoai" id="vnpay_so_dien_thoai">
+                        <input type="hidden" name="email" id="vnpay_email">
+                        <input type="hidden" name="dia_chi" id="vnpay_dia_chi">
+                        <input type="hidden" name="ghi_chu" id="vnpay_ghi_chu">
+                        <input type="hidden" name="payment_method" value="vnpay">
+                    </form>
                 </div>
             </div>
         </div>
@@ -131,123 +151,141 @@
     margin-bottom: 30px;
 }
 
-h2 {
-    font-size: 24px;
-    margin-bottom: 30px;
-    color: #2a5a4c;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-h2:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background-color: #2a5a4c;
-}
-
-.order-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.item-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.item-image {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
+.btn-place-order {
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
     border-radius: 5px;
-}
-
-.item-details h4 {
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-.item-details p {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 3px;
-}
-
-.item-total {
-    font-weight: 500;
-    color: #2a5a4c;
-}
-
-.total-line {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px dashed #ddd;
-}
-
-.grand-total {
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 2px solid #ddd;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    text-transform: uppercase;
 }
 
-.shipping-note {
-    font-size: 14px;
-    color: #666;
-    margin: 10px 0;
+.btn-place-order:hover {
+    background-color: #218838;
 }
 
-.free-shipping {
-    color: #28a745;
-    font-weight: 500;
+.btn-place-order:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
 }
 
 .payment-methods {
-    margin-top: 30px;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
 }
 
 .payment-methods h3 {
+    margin-bottom: 15px;
     font-size: 18px;
-    margin-bottom: 20px;
 }
 
 .form-check {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .form-check-label {
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
-.btn-place-order {
-    width: 100%;
-    padding: 15px;
-    background-color: #2a5a4c;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 20px;
 }
 
-.btn-place-order:hover {
-    background-color: #1e4438;
+.form-check-label i {
+    font-size: 20px;
 }
+
+.form-check-input {
+    cursor: pointer;
+}
+
+/* ... Rest of the styles ... */
 </style>
-@endpush 
+@endpush
+
+@push('scripts')
+<script>
+function submitOrder() {
+    // Reset validation errors
+    $('.is-invalid').removeClass('is-invalid');
+    $('.invalid-feedback').hide();
+    
+    // Disable submit button
+    const submitButton = $('.btn-place-order');
+    submitButton.prop('disabled', true);
+    
+    // Get form data
+    const formData = new FormData();
+    formData.append('ho_ten', $('#ho_ten').val());
+    formData.append('so_dien_thoai', $('#so_dien_thoai').val());
+    formData.append('email', $('#email').val());
+    formData.append('dia_chi', $('#dia_chi').val());
+    formData.append('ghi_chu', $('#ghi_chu').val());
+    formData.append('payment_method', $('input[name="payment_method"]:checked').val());
+    formData.append('_token', $('input[name="_token"]').val());
+
+    // Get selected payment method
+    const paymentMethod = $('input[name="payment_method"]:checked').val();
+    
+    // Define the endpoint based on payment method
+    const endpoint = paymentMethod === 'cod' 
+        ? '{{ route("cart.process-checkout") }}'
+        : '{{ route("payment") }}';
+    
+    // Send request
+    $.ajax({
+        url: endpoint,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if (paymentMethod === 'cod') {
+                // Show success popup for COD
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Đặt hàng thành công!',
+                    text: 'Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đã được xác nhận.',
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/'; // Redirect to home page
+                    }
+                });
+            } else if (response.data) {
+                // Redirect to VNPay payment page
+                window.location.href = response.data;
+            }
+        },
+        error: function(xhr) {
+            submitButton.prop('disabled', false);
+            
+            if (xhr.status === 422) {
+                // Validation errors
+                const errors = xhr.responseJSON.errors;
+                Object.keys(errors).forEach(field => {
+                    $(`#${field}`).addClass('is-invalid');
+                    $(`#${field}_error`).text(errors[field][0]).show();
+                });
+            } else {
+                // Other errors
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: xhr.responseJSON?.message || 'Có lỗi xảy ra'
+                });
+            }
+        }
+    });
+}
+</script>
+@endpush
+@endsection

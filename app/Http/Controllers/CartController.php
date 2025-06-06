@@ -380,8 +380,7 @@ class CartController extends Controller
             $request->validate([
                 'ho_ten' => 'required|string|max:255',
                 'so_dien_thoai' => 'required|string|max:20',
-                'dia_chi' => 'required|string',
-                'payment_method' => 'required|in:cod,bank_transfer'
+                'dia_chi' => 'required|string'
             ]);
             
             // Lấy giỏ hàng active của user
@@ -390,7 +389,10 @@ class CartController extends Controller
                 ->first();
 
             if (!$cart) {
-                return redirect()->route('cart.view')->with('error', 'Giỏ hàng trống');
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Giỏ hàng trống'
+                ], 400);
             }
 
             $cartItems = ChiTietGioHang::where('id_gio_hang', $cart->id)
@@ -398,7 +400,10 @@ class CartController extends Controller
                 ->get();
 
             if ($cartItems->isEmpty()) {
-                return redirect()->route('cart.view')->with('error', 'Giỏ hàng trống');
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Giỏ hàng trống'
+                ], 400);
             }
 
             // Tính tổng tiền
@@ -413,25 +418,27 @@ class CartController extends Controller
                 // Tạo đơn hàng mới
                 $order = DonHang::create([
                     'id_khach_hang' => $userId,
-                    'ho_ten_nguoi_nhan' => $request->ho_ten,
-                    'so_dien_thoai' => $request->so_dien_thoai,
+                    'tong_tien' => $orderTotal,
+                    'trang_thai' => 'cho_xu_ly',
+                    'trang_thai_thanh_toan' => 'chua_thanh_toan',
                     'dia_chi' => $request->dia_chi,
                     'ghi_chu' => $request->ghi_chu,
-                    'phuong_thuc_thanh_toan' => $request->payment_method,
-                    'tong_tien' => $subTotal,
+                    'ho_ten' => $request->ho_ten,
+                    'so_dien_thoai' => $request->so_dien_thoai,
+                    'email' => $request->email,
                     'phi_van_chuyen' => $shipping,
                     'vat' => $vat,
-                    'tong_thanh_toan' => $orderTotal,
-                    'trang_thai' => 'pending'
+                    'tong_tien_hang' => $subTotal,
+                    'phuong_thuc_thanh_toan' => 'cod'
                 ]);
 
                 // Thêm chi tiết đơn hàng
                 foreach ($cartItems as $item) {
                     ChiTietDonHang::create([
-                        'id_don_hang' => $order->id,
-                        'id_sach' => $item->id_sach,
+                        'don_hang_id' => $order->id,
+                        'sach_id' => $item->sach->id,
                         'so_luong' => $item->so_luong,
-                        'gia_tien' => $item->gia_tien,
+                        'don_gia' => $item->gia_tien,
                         'thanh_tien' => $item->thanh_tien
                     ]);
 
@@ -450,16 +457,20 @@ class CartController extends Controller
                 // Xóa session cart_count
                 session()->forget('cart_count');
 
-                return redirect()->route('order.success', ['id' => $order->id])
-                    ->with('success', 'Đặt hàng thành công!');
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Đặt hàng thành công'
+                ]);
+
             } catch (Exception $e) {
                 DB::rollBack();
                 throw $e;
             }
         } catch (Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Có lỗi xảy ra: ' . $e->getMessage())
-                ->withInput();
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Có lỗi xảy ra: ' . $e->getMessage()
+            ], 500);
         }
     }
-} 
+}

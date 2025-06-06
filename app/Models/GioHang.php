@@ -51,11 +51,15 @@ class GioHang extends Model
     }
     
     /**
-     * Cập nhật tổng tiền trong giỏ hàng
+     * Cập nhật tổng tiền trong giỏ hàng bao gồm VAT và phí vận chuyển
      */
     public function capNhatTongTien()
     {
-        $this->tong_tien = $this->chiTietGioHang->sum('thanh_tien');
+        $subTotal = $this->chiTietGioHang->sum('thanh_tien');
+        $vat = $subTotal * 0.1; // VAT 10%
+        $shipping = $subTotal >= 500000 ? 0 : 30000; // Miễn phí vận chuyển cho đơn hàng từ 500k
+        
+        $this->tong_tien = $subTotal + $vat + $shipping;
         $this->save();
         
         return $this;

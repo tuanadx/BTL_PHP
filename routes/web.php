@@ -15,7 +15,8 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ContestController;
-
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\CodPaymentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -124,3 +125,8 @@ Route::get('/gioi-thieu', [HomeController::class, 'about'])->name('about');
 
 // Stores page route
 Route::get('/he-thong-hieu-sach', [HomeController::class, 'stores'])->name('stores');
+
+// Payment routes
+Route::post('/cod-payment', [CodPaymentController::class, 'processCodPayment'])->name('payment.cod');
+Route::post('/vnpay_payment', [PaymentController::class, 'vnpay_payment'])->name('payment');
+Route::get('/vnpay_return', [PaymentController::class, 'vnpay_return'])->name('payment.return');
