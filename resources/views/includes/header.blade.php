@@ -34,7 +34,7 @@
                     <div class="col-lg-2 col-md-3">
                         <div class="logo">
                             <a href="{{ url('/') }}">
-                                <img src="https://ext.same-assets.com/3715259319/3110586656.png" alt="Green Book">
+                                <img src="https://www.transparentpng.com/download/books/quality-green-book-logo-icon-transparent-8edO01.png" alt="Green Book">
                             </a>
                         </div>
                     </div>

@@ -25,7 +25,7 @@
                 <div class="footer-columns">
                     <div class="footer-column">
                         <div class="footer-logo">
-                            <img src="https://ext.same-assets.com/3715259319/3110586656.png" alt="Green Book">
+                            <img src="https://www.transparentpng.com/download/books/quality-green-book-logo-icon-transparent-8edO01.png" alt="Green Book">
                             <p>Đời vì sách là thế giới</p>
                         </div>
                         <div class="footer-contact">
