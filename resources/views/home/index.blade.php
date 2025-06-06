@@ -7,17 +7,21 @@
 <link rel="stylesheet" href="{{ asset('css/home-sections.css') }}">
 
 <!-- Breadcrumb -->
-<div class="breadcrumb">
+<!-- <div class="breadcrumb">
     <div class="container">
         <ul>
             <li><a href="{{ url('/') }}">Trang chủ</a></li>
             <li class="active">Tất cả sản phẩm</li>
         </ul>
     </div>
-</div>
+</div> -->
 
 <title>Section 1 - Sự kiện & Tin tức</title>
 <title>Section 1 - Tin Tức Nhã Nam</title>
+
+<div class="section-title-container">
+    <h2 class="section-title">Tin tức & Sự kiện</h2>
+</div>
 
 <section class="section-news">
     <div class="container-news">
@@ -26,8 +30,8 @@
         <div class="slides" id="slides">
           <!-- Slide 1 -->
           <div class="slide">
-            <a href="baibao1.html">
-            <img src="image/1.webp" alt="">
+            <a href="{{ route('news.nhanam') }}">
+            <img src="https://bizweb.dktcdn.net/100/363/455/articles/494621307-1097261965774870-6550418258675179038-n.jpg?v=1746519986820" alt="">
             <div class="slide-info">
               <h3>HỘI SÁCH NHÃ NAM CHÀO HÈ 2025</h3>
               <p>Thứ Ba, 08/04/2025</p>
@@ -35,8 +39,8 @@
           </div>
           <!-- Slide 2 -->
           <div class="slide">
-            <a href="baibao2.html">
-            <img src="image/2.webp" alt="">
+            <a href="{{ route('news.nhanam') }}">
+            <img src="https://bizweb.dktcdn.net/100/363/455/articles/491279363-1088490436652023-2743767814237791180-n.jpg?v=1745208865993" alt="">
             <div class="slide-info">
               <h3>SỰ KIỆN ĐẶC BIỆT NHÃ NAM 2025</h3>
               <p>Thứ Sáu, 12/04/2025</p>
@@ -44,8 +48,8 @@
           </div>
           <!-- Slide 3 -->
           <div class="slide">
-            <a href="baibao3.html">
-            <img src="image/3.webp" alt="">
+            <a href="{{ route('news.nhanam') }}">
+            <img src="https://bizweb.dktcdn.net/100/363/455/articles/489006758-1079586880875712-661463280947496865-n.jpg?v=1744100699603" alt="">
             <div class="slide-info">
               <h3>HỘI THẢO GIỚI THIỆU SÁCH MỚI</h3>
               <p>Thứ Bảy, 20/04/2025</p>
@@ -56,29 +60,29 @@
 
       <!-- Bài viết phải -->
       <div class="news-list">
-        <a class="news-item" href="baibao4.html">
-          <img src="image/4.webp" alt="">
+        <a class="news-item" href="{{ route('news.nhanam') }}">
+          <img src="https://bizweb.dktcdn.net/100/363/455/articles/484799317-1063744625793271-7677298375345374751-n.jpg?v=1742792125167" alt="">
           <div>
             <h4>Hành trình khám phá sự phát triển của nghệ thuật âm thanh qua các</h4>
             <p>Thứ Hai, 17/03/2025</p>
           </div>
         </a>
-        <a class="news-item" href="baibao5.html">
-          <img src="image/5.webp" alt="">
+        <a class="news-item" href="{{ route('news.nhanam') }}">
+          <img src="https://bizweb.dktcdn.net/100/363/455/articles/website-a-nh-da-i-die-n-ba-i-vie-t-17-51a80241-426c-4785-b5e1-9aedf8dff8c0.png?v=1742197752157" alt="">
           <div>
             <h4>Con người và đất đai</h4>
             <p>Thứ Hai, 17/03/2025</p>
           </div>
         </a>
-        <a class="news-item" href="baibao6.html">
-          <img src="image/6.webp" alt="">
+        <a class="news-item" href="{{ route('news.nhanam') }}">
+          <img src="https://bizweb.dktcdn.net/100/363/455/articles/480203269-1042894241211643-9180551152830458713-n.jpg?v=1740994652690" alt="">
           <div>
             <h4>"Pha cà phê ngon tại nhà" - Cẩm nang toàn diện để pha cà phê</h4>
             <p>Chủ Nhật, 16/02/2025</p>
           </div>
         </a>
-        <a class="news-item" href="baibao7.html">
-          <img src="image/7.webp" alt="">
+        <a class="news-item" href="{{ route('news.nhanam') }}">
+          <img src="https://bizweb.dktcdn.net/100/363/455/articles/website-a-nh-da-i-die-n-ba-i-vie-t-14-42424747-4313-46a1-a9d9-0375b3214194.png?v=1740891085440" alt="">
           <div>
             <h4>MAUS - làm thế nào để nói về Holocaust?</h4>
             <p>Thứ Hai, 20/01/2025</p>
@@ -92,72 +96,54 @@
 <script>
     let index = 0;
     const slides = document.getElementById('slides');
-    const totalSlides = slides.children.length;
 
-    setInterval(() => {
-      index = (index + 1) % totalSlides;
-      slides.style.transform = `translateX(-${index * 100}%)`;
-    }, 4000);
+    // Clone slide đầu tiên và thêm vào cuối
+    const firstSlide = slides.children[0].cloneNode(true);
+    slides.appendChild(firstSlide);
+
+    const totalSlides = slides.children.length - 1;
+
+    function nextSlide() {
+        index++;
+        slides.style.transition = 'transform 0.5s ease-in-out';
+        slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    setInterval(nextSlide, 3000);
+
+    slides.addEventListener('transitionend', () => {
+        if (index === totalSlides) {
+            slides.style.transition = 'none';
+            index = 0;
+            slides.style.transform = `translateX(0)`;
+            setTimeout(() => {
+                slides.style.transition = 'transform 0.5s ease-in-out';
+            }, 50);
+        }
+    });
 </script>
+
+
 
 <title>Các tác giả</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <div class="section-authors">
   <div style="display: flex; justify-content: space-between; align-items: center;">
-    <h2>Các tác giả</h2>
-    <a href="#" class="view-more">Xem thêm <i class="fas fa-arrow-right"></i></a>
+    <h2 class="section-title">Các tác giả</h2>
+    <a href="{{ route('authors.index') }}" class="view-more">Xem thêm <i class="fas fa-arrow-right"></i></a>
   </div>
 
   <div class="swiper mySwiperTacgia">
     <div class="swiper-wrapper">
-      <!-- Tác giả 1 -->
+      @foreach($authors as $author)
       <div class="swiper-slide">
         <div class="author-avatar">
-          <img src="image/tgia/1&2.webp" alt="Kolya Bùi">
+          <img width="150" height="150" src="https://bizweb.dktcdn.net/100/363/455/articles/blank-profile-picture-973460-640-084e4e29-55b0-4110-a202-e789fff36a77.png" alt="{{ $author->ten_tac_gia }}" class="img-responsive">
         </div>
-        <div class="author-name">Kolya Bùi</div>
+        <div class="author-name">{{ $author->ten_tac_gia }}</div>
       </div>
-
-      <!-- Tác giả 2 -->
-      <div class="swiper-slide">
-        <div class="author-avatar">
-          <img src="image/tgia/1&2.webp" alt="Ngọ Diệp">
-        </div>
-        <div class="author-name">Ngọ Diệp</div>
-      </div>
-
-      <!-- Tác giả 3 -->
-      <div class="swiper-slide">
-        <div class="author-avatar">
-          <img src="image/tgia/3.webp" alt="Timothy Corrigan">
-        </div>
-        <div class="author-name">Timothy Corrigan</div>
-      </div>
-
-      <!-- Tác giả 4 -->
-      <div class="swiper-slide">
-        <div class="author-avatar">
-          <img src="image/tgia/4.webp" alt="Wu Ming-Yi">
-        </div>
-        <div class="author-name">Wu Ming-Yi</div>
-      </div>
-
-      <!-- Tác giả 5 -->
-      <div class="swiper-slide">
-        <div class="author-avatar">
-          <img src="image/tgia/5.webp" alt="Maxime Pérez">
-        </div>
-        <div class="author-name">Maxime Pérez</div>
-      </div>
-
-      <!-- Tác giả 6 -->
-      <div class="swiper-slide">
-        <div class="author-avatar">
-          <img src="image/tgia/6.webp" alt="James West">
-        </div>
-        <div class="author-name">James West</div>
-      </div>
+      @endforeach
     </div>
 
     <!-- Nút điều hướng -->
@@ -208,7 +194,7 @@
         </div>
         <div class="product-content">
             <div class="collection-header" id="product-section">
-                <h1>{{ $title }}</h1>
+                <h1 class="section-title">{{ $title }}</h1>
                 <div class="collection-sorting">
                     <span>Sắp xếp theo</span>
                     <div class="sort-options">

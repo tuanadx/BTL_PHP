@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sach;
+use App\Models\TacGia;
 use App\Models\QuocGia;
 use Illuminate\Pagination\Paginator;
 
@@ -17,9 +18,13 @@ class HomeController extends Controller
         $perPage = 8; // Số sách mỗi trang
         $query = Sach::query();
         
+        // Lấy danh sách quốc gia
+        $countries = QuocGia::all();
+        $selectedCountries = $request->get('country', []);
+
         // Lọc theo quốc gia nếu có
-        if ($request->has('country') && !empty($request->country)) {
-            $query->whereIn('ma_quoc_gia', (array)$request->country);
+        if (!empty($selectedCountries)) {
+            $query->whereIn('ma_quoc_gia', $selectedCountries);
         }
 
         // Xử lý sắp xếp
@@ -40,15 +45,18 @@ class HomeController extends Controller
         }
         
         $books = $query->paginate($perPage)->onEachSide(1);
-        $countries = QuocGia::all(); // Lấy danh sách quốc gia
+        
+        // Lấy danh sách tác giả cho slider
+        $authors = TacGia::limit(6)->get();
         
         if ($request->ajax()) {
             return view('home.index', [
                 'title' => 'Trang chủ',
                 'books' => $books,
                 'countries' => $countries,
-                'selectedCountries' => (array)$request->country,
-                'sortType' => $sortType
+                'selectedCountries' => $selectedCountries,
+                'sortType' => $sortType,
+                'authors' => $authors
             ])->render();
         }
         
@@ -56,18 +64,19 @@ class HomeController extends Controller
             'title' => 'Trang chủ',
             'books' => $books,
             'countries' => $countries,
-            'selectedCountries' => (array)$request->country,
-            'sortType' => $sortType
+            'selectedCountries' => $selectedCountries,
+            'sortType' => $sortType,
+            'authors' => $authors
         ]);
     }
 
     public function about()
     {
-        return view('about');
+        return view('home.about');
     }
 
     public function stores()
     {
-        return view('stores');
+        return view('home.stores');
     }
 }
