@@ -1,0 +1,82 @@
+/* static-pages.css - Style riêng cho các trang tĩnh như about, stores */
+
+.static-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 32px 48px 32px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+}
+
+.static-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 24px auto;
+    border-radius: 8px;
+}
+
+.static-container h1.title-module {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #256029;
+    margin-bottom: 24px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.static-container p,
+.static-container li {
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: #222;
+    margin-bottom: 14px;
+    text-align: justify;
+}
+
+.static-container ul {
+    margin-left: 24px;
+    margin-bottom: 18px;
+}
+
+.static-container strong {
+    color: #256029;
+}
+
+.static-container .section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 12px;
+    color: #256029;
+    border-bottom: 2px solid #256029;
+    display: inline-block;
+    padding-bottom: 4px;
+}
+
+@media (max-width: 900px) {
+    .static-container {
+        max-width: 100%;
+        padding: 24px 16px 32px 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .static-container {
+        padding: 12px 4px 20px 4px;
+    }
+
+    .static-container h1.title-module {
+        font-size: 1.4rem;
+    }
+
+    .stores-flex {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .stores-map iframe {
+        height: 220px !important;
+    }
+}
