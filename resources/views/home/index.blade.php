@@ -17,7 +17,7 @@
 </div> -->
 
 <title>Section 1 - Sự kiện & Tin tức</title>
-<title>Section 1 - Tin Tức Nhã Nam</title>
+<title>Section 1 - Tin Tức Green Book</title>
 
 <div class="section-title-container">
     <h2 class="section-title">Tin tức & Sự kiện</h2>
@@ -33,7 +33,7 @@
             <a href="{{ route('news.nhanam') }}">
             <img src="https://bizweb.dktcdn.net/100/363/455/articles/494621307-1097261965774870-6550418258675179038-n.jpg?v=1746519986820" alt="">
             <div class="slide-info">
-              <h3>HỘI SÁCH NHÃ NAM CHÀO HÈ 2025</h3>
+              <h3>HỘI SÁCH GREEN BOOK CHÀO HÈ 2025</h3>
               <p>Thứ Ba, 08/04/2025</p>
             </div>
           </div>
@@ -42,7 +42,7 @@
             <a href="{{ route('news.nhanam') }}">
             <img src="https://bizweb.dktcdn.net/100/363/455/articles/491279363-1088490436652023-2743767814237791180-n.jpg?v=1745208865993" alt="">
             <div class="slide-info">
-              <h3>SỰ KIỆN ĐẶC BIỆT NHÃ NAM 2025</h3>
+              <h3>SỰ KIỆN ĐẶC BIỆT GREEN BOOK 2025</h3>
               <p>Thứ Sáu, 12/04/2025</p>
             </div>
           </div>
@@ -194,7 +194,7 @@
         </div>
         <div class="product-content">
             <div class="collection-header" id="product-section">
-                <h1 class="section-title">{{ $title }}</h1>
+                <h1 class="section-title">Sách</h1>
                 <div class="collection-sorting">
                     <span>Sắp xếp theo</span>
                     <div class="sort-options">

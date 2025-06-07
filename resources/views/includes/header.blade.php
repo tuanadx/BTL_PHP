@@ -102,15 +102,15 @@
                                                 <i class="fas fa-history"></i>
                                                 Lịch sử đơn hàng
                                             </a>
-                                            <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
-                                                @csrf
-                                                <button type="submit" style="background: none; border: none; width: 100%; text-align: left; padding: 8px 15px; display: flex; align-items: center; color: inherit; text-decoration: none;">
-                                                    <i class="fas fa-sign-out-alt"></i>
-                                                    <span style="margin-left: 10px;">Đăng xuất</span>
-                                                </button>
-                                            </form>
+                                            <a href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="display: flex; align-items: center; padding: 8px 15px; color: inherit; text-decoration: none;">
+                                                <i class="fas fa-sign-out-alt"></i>
+                                                <span style="margin-left: 10px;">Đăng xuất</span>
+                                            </a>
                                         </div>
                                     </div>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                                 @else
                                     <div class="user-dropdown">
                                         <a href="javascript:void(0);" class="user-toggle">

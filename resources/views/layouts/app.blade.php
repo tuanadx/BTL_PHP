@@ -16,6 +16,12 @@
     <link href="{{ asset('css/detail.css') }}" rel="stylesheet">
     <!-- Cart CSS -->
     <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
+    <!-- News CSS -->
+    <link href="{{ asset('css/news.css') }}" rel="stylesheet">
+    <!-- Home Sections CSS -->
+    <link href="{{ asset('css/home-sections.css') }}" rel="stylesheet">
+    <!-- Static Pages CSS -->
+    <link href="{{ asset('css/static-pages.css') }}" rel="stylesheet">
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Base URL for JavaScript -->

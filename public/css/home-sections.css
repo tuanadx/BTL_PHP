@@ -1,5 +1,4 @@
-/* News Section Styles */
-body {
+News Section Styles body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f5f9f4;
@@ -9,12 +8,16 @@ body {
     padding: 40px 20px;
     max-width: 1200px;
     margin: auto;
+    border-bottom: 2px solid #2a5a4c;
+    margin-bottom: 40px;
 }
 
 .section-title-container {
     max-width: 1200px;
     margin: 40px auto 20px;
     padding: 0 16px;
+    border-bottom: 2px solid #2a5a4c;
+    padding-bottom: 15px;
 }
 
 .section-title {
@@ -33,12 +36,13 @@ body {
     flex-wrap: wrap;
 }
 
-/* News Slider */
+
 .news-slider {
     flex: 2;
     min-width: 300px;
     position: relative;
     overflow: hidden;
+
 }
 
 .slides {
@@ -79,7 +83,6 @@ body {
     margin-top: 6px;
 }
 
-/* News List */
 .news-list {
     flex: 1;
     min-width: 280px;
@@ -122,17 +125,19 @@ body {
     margin-top: 5px;
 }
 
-/* Authors Section Styles */
+
 .section-authors {
     max-width: 1200px;
     margin: 40px auto;
     padding: 0 16px;
+    border-bottom: 2px solid #2a5a4c;
+    padding-bottom: 30px;
 }
 
 .view-more {
     float: right;
     font-size: 14px;
-    color: #207c2e;
+    color: #2a5a4c;
     text-decoration: none;
     margin-top: 8px;
 }
@@ -167,7 +172,7 @@ body {
     font-weight: 500;
 }
 
-/* Responsive Styles */
+
 @media (max-width: 768px) {
     .container-news {
         flex-direction: column;
