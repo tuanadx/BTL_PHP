@@ -83,7 +83,8 @@
                                 <div class="item-details">
                                     <h4>{{ $item->sach->ten_sach }}</h4>
                                     <p>Số lượng: {{ $item->so_luong }}</p>
-                                    <p>Đơn giá: {{ number_format($item->gia_tien, 0, ',', '.') }}₫</p>
+                                    <p>Đơn giá: {{ number_format($item->don_gia, 0, ',', '.') }}₫</p>
+                                    <p>Thành tiền: {{ number_format($item->so_luong * $item->don_gia, 0, ',', '.') }}₫</p>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +99,7 @@
                     <div class="order-footer">
                         <div class="order-total">
                             <span>Tổng tiền:</span>
-                            <span class="total-amount">{{ number_format($order->tong_thanh_toan, 0, ',', '.') }}₫</span>
+                            <span class="total-amount">{{ number_format($order->tong_tien, 0, ',', '.') }}₫</span>
                         </div>
                         <div class="order-actions">
                             <a href="{{ route('order.detail', ['id' => $order->id]) }}" class="btn-view-order">

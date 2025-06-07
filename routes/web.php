@@ -122,7 +122,10 @@ Route::get('/tac-gia', [AuthorController::class, 'index'])->name('authors.index'
 Route::get('/tac-gia/{id}', [AuthorController::class, 'show'])->name('authors.show');
 
 // Contest routes
-Route::get('/ai-do-doc-cung-ta', [NewsController::class, 'aiDocCungTa'])->name('news.ai_doc_cung_ta');
+Route::prefix('cuoc-thi')->group(function () {
+    Route::get('/', [ContestController::class, 'index'])->name('contest.index');
+    Route::get('/ai-do-doc-cung-ta', [NewsController::class, 'aiDocCungTa'])->name('news.ai_doc_cung_ta');
+});
 
 // About page route
 Route::get('/gioi-thieu', [HomeController::class, 'about'])->name('about');

@@ -16,8 +16,10 @@ class DonHang extends Model
         'ngay_dat_hang',
         'tong_tien',
         'trang_thai',
+        'trang_thai_thanh_toan',
+        'dia_chi',
         'ghi_chu',
-        'dia_chi'
+        'sdt_nguoi_nhan'
     ];
 
     protected $casts = [

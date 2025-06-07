@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                             <div class="item-total">
-                                {{ number_format($item->thanh_tien, 0, ',', '.') }}₫
+                                <!-- {{ number_format($item->thanh_tien, 0, ',', '.') }}₫ -->
                             </div>
                         </div>
                         @endforeach

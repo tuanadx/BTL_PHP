@@ -19,7 +19,11 @@ return new class extends Migration
             $table->enum('trang_thai', ['cho_xu_ly', 'dang_giao', 'da_giao', 'da_huy'])->default('cho_xu_ly');
             $table->enum('trang_thai_thanh_toan', ['da_thanh_toan_vnpay', 'chua_thanh_toan', 'da_thanh_toan_khi_nhan_hang'])->default('chua_thanh_toan');
             $table->text('dia_chi');
+            $table->string('sdt_nguoi_nhan', 20);
             $table->text('ghi_chu')->nullable();
+            $table->string('ma_giao_dich_vnpay')->nullable();
+            $table->string('ma_ngan_hang')->nullable();
+            $table->timestamp('ngay_thanh_toan')->nullable();
             $table->timestamps();
         });
     }

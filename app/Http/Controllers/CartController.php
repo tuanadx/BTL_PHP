@@ -379,8 +379,16 @@ class CartController extends Controller
             // Validate input
             $request->validate([
                 'ho_ten' => 'required|string|max:255',
-                'so_dien_thoai' => 'required|string|max:20',
-                'dia_chi' => 'required|string'
+                'so_dien_thoai' => 'required|string|max:20|regex:/^[0-9]+$/',
+                'dia_chi' => 'required|string',
+                'email' => 'required|email'
+            ], [
+                'ho_ten.required' => 'Vui lòng nhập họ tên người nhận',
+                'so_dien_thoai.required' => 'Vui lòng nhập số điện thoại người nhận',
+                'so_dien_thoai.regex' => 'Số điện thoại chỉ được chứa số',
+                'dia_chi.required' => 'Vui lòng nhập địa chỉ giao hàng',
+                'email.required' => 'Vui lòng nhập email',
+                'email.email' => 'Email không đúng định dạng'
             ]);
             
             // Lấy giỏ hàng active của user
@@ -424,7 +432,7 @@ class CartController extends Controller
                     'dia_chi' => $request->dia_chi,
                     'ghi_chu' => $request->ghi_chu,
                     'ho_ten' => $request->ho_ten,
-                    'so_dien_thoai' => $request->so_dien_thoai,
+                    'sdt_nguoi_nhan' => $request->so_dien_thoai,
                     'email' => $request->email,
                     'phi_van_chuyen' => $shipping,
                     'vat' => $vat,
@@ -438,8 +446,7 @@ class CartController extends Controller
                         'don_hang_id' => $order->id,
                         'sach_id' => $item->sach->id,
                         'so_luong' => $item->so_luong,
-                        'don_gia' => $item->gia_tien,
-                        'thanh_tien' => $item->thanh_tien
+                        'don_gia' => $item->sach->gia_tien
                     ]);
 
                     // Cập nhật số lượng sách
