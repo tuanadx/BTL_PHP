@@ -79,4 +79,24 @@ class HomeController extends Controller
     {
         return view('stores');
     }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $perPage = 8;
+        $query = \App\Models\Sach::query()->with(['tacGia', 'nhaXuatBan']);
+        if ($keyword) {
+            $query->where(function($q) use ($keyword) {
+                $q->where('ten_sach', 'like', "%$keyword%")
+                  ->orWhereHas('tacGia', function($q2) use ($keyword) {
+                      $q2->where('ten_tac_gia', 'like', "%$keyword%") ;
+                  })
+                  ->orWhereHas('nhaXuatBan', function($q3) use ($keyword) {
+                      $q3->where('ten_nxb', 'like', "%$keyword%") ;
+                  });
+            });
+        }
+        $books = $query->paginate($perPage)->appends(['keyword' => $keyword]);
+        return view('home.search', compact('books', 'keyword'));
+    }
 }

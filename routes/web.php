@@ -30,6 +30,7 @@ use App\Http\Controllers\CodPaymentController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/books/detail/{id}', [BookController::class, 'detail'])->name('books.detail');
+Route::get('/home/search', [HomeController::class, 'search'])->name('home.search');
 
 // Cart Routes
 Route::prefix('cart')->group(function () {
@@ -62,10 +63,6 @@ Route::prefix('user')->middleware('auth:khach_hang')->group(function () {
     Route::post('/update-profile', [UserController::class, 'updateProfile'])->name('update.profile');
     Route::get('/change-password', [UserController::class, 'changePassword'])->name('change.password');
     Route::post('/update-password', [UserController::class, 'updatePassword'])->name('update.password');
-});
-
-Route::middleware(['auth:khach_hang', 'admin'])->group(function () {
-    Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

@@ -39,16 +39,27 @@ class AuthController extends Controller
 
         if (Auth::guard('khach_hang')->attempt($credentials)) {
             $request->session()->regenerate();
-            
-            // Kiểm tra role và chuyển hướng phù hợp
+            // Đồng bộ giỏ hàng session vào DB sau khi đăng nhập thành công
             $user = Auth::guard('khach_hang')->user();
-            $redirectUrl = $user->role === 0 ? '/admin' : '/';
-            
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Đăng nhập thành công',
-                'redirect' => $redirectUrl
-            ]);
+            if ($user) {
+                \App\Http\Controllers\CartController::mergeSessionCartToDb($user->id);
+            }
+            // Kiểm tra role và chuyển hướng phù hợp
+            if ($user->role === 0) {
+                // Admin: chuyển hướng về dashboard admin
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Đăng nhập thành công',
+                    'redirect' => '/admin'
+                ]);
+            } else {
+                // Khách hàng: chuyển hướng về trang chủ
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Đăng nhập thành công',
+                    'redirect' => '/'
+                ]);
+            }
         }
 
         return response()->json([

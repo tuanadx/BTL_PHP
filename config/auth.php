@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'khach_hang',
-        'passwords' => 'users',
+        'passwords' => 'khach_hang', // Đổi từ 'users' thành 'khach_hang'
     ],
 
     /*
@@ -99,6 +99,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'khach_hang' => [
+            'provider' => 'khach_hang',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

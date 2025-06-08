@@ -35,37 +35,65 @@
                         </thead>
                         <tbody>
                             @foreach($data['cartItems'] as $item)
-                            <tr data-cart-detail-id="{{ $item->id }}">
-                                <td class="image-col">
-                                    <a href="{{ route('books.detail', ['id' => $item->sach->id]) }}">
-                                        <img src="{{ !empty($item->sach->anh) ? asset('storage/' . $item->sach->anh) : asset('images/default-book.jpg') }}" 
-                                             alt="{{ $item->sach->ten_sach }}">
-                                    </a>
-                                </td>
-                                <td class="item-col">
-                                    <a href="{{ route('books.detail', ['id' => $item->sach->id]) }}">{{ $item->sach->ten_sach }}</a>
-                                </td>
-                                <td class="price-col">
-                                    <span class="price">{{ number_format($item->gia_tien, 0, ',', '.') }}₫</span>
-                                </td>
-                                <td class="quantity-col">
-                                    <div class="quantity-controls">
-                                        <button type="button" class="quantity-btn minus"><i class="fas fa-minus"></i></button>
-                                        <input type="number" value="{{ $item->so_luong }}" class="quantity-input" 
-                                               data-cart-detail-id="{{ $item->id }}"
-                                               min="1" max="{{ $item->sach->so_luong }}">
-                                        <button type="button" class="quantity-btn plus"><i class="fas fa-plus"></i></button>
-                                    </div>
-                                </td>
-                                <td class="total-col">
-                                    <span class="total">{{ number_format($item->thanh_tien, 0, ',', '.') }}₫</span>
-                                </td>
-                                <td class="remove-col">
-                                    <button type="button" class="remove-item" data-cart-detail-id="{{ $item->id }}">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                                @if($data['is_logged_in'])
+                                    <tr data-cart-detail-id="{{ $item->id }}">
+                                        <td class="image-col">
+                                            <a href="{{ route('books.detail', ['id' => $item->sach->id]) }}">
+                                                <img src="{{ !empty($item->sach->anh) ? asset('storage/' . $item->sach->anh) : asset('images/default-book.jpg') }}" alt="{{ $item->sach->ten_sach }}">
+                                            </a>
+                                        </td>
+                                        <td class="item-col">
+                                            <a href="{{ route('books.detail', ['id' => $item->sach->id]) }}">{{ $item->sach->ten_sach }}</a>
+                                        </td>
+                                        <td class="price-col">
+                                            <span class="price">{{ number_format($item->gia_tien, 0, ',', '.') }}₫</span>
+                                        </td>
+                                        <td class="quantity-col">
+                                            <div class="quantity-controls">
+                                                <button type="button" class="quantity-btn minus"><i class="fas fa-minus"></i></button>
+                                                <input type="number" value="{{ $item->so_luong }}" class="quantity-input" data-cart-detail-id="{{ $item->id }}" min="1" max="{{ $item->sach->so_luong }}">
+                                                <button type="button" class="quantity-btn plus"><i class="fas fa-plus"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="total-col">
+                                            <span class="total">{{ number_format($item->thanh_tien, 0, ',', '.') }}₫</span>
+                                        </td>
+                                        <td class="remove-col">
+                                            <button type="button" class="remove-item" data-cart-detail-id="{{ $item->id }}">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @else
+                                    <tr data-cart-detail-id="{{ $item->book_id }}">
+                                        <td class="image-col">
+                                            <a href="{{ route('books.detail', ['id' => $item->book_id]) }}">
+                                                <img src="{{ !empty($item->anh) ? asset('storage/' . $item->anh) : asset('images/default-book.jpg') }}" alt="{{ $item->ten_sach }}">
+                                            </a>
+                                        </td>
+                                        <td class="item-col">
+                                            <a href="{{ route('books.detail', ['id' => $item->book_id]) }}">{{ $item->ten_sach }}</a>
+                                        </td>
+                                        <td class="price-col">
+                                            <span class="price">{{ number_format($item->gia_tien, 0, ',', '.') }}₫</span>
+                                        </td>
+                                        <td class="quantity-col">
+                                            <div class="quantity-controls">
+                                                <button type="button" class="quantity-btn minus"><i class="fas fa-minus"></i></button>
+                                                <input type="number" value="{{ $item->quantity }}" class="quantity-input" data-cart-detail-id="{{ $item->book_id }}" min="1">
+                                                <button type="button" class="quantity-btn plus"><i class="fas fa-plus"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="total-col">
+                                            <span class="total">{{ number_format($item->thanh_tien, 0, ',', '.') }}₫</span>
+                                        </td>
+                                        <td class="remove-col">
+                                            <button type="button" class="remove-item" data-cart-detail-id="{{ $item->book_id }}">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

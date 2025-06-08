@@ -81,10 +81,31 @@ class CartController extends Controller
                     'cart_count' => $cartCount
                 ]);
             } else {
-                // Người dùng chưa đăng nhập - trả về thông tin sách để lưu vào localStorage
+                // Người dùng chưa đăng nhập - lưu vào session
+                $cart = session('cart', []);
+                $found = false;
+                foreach ($cart as $i => $item) {
+                    if (($item['book_id'] ?? $item['id']) == $bookId) {
+                        $cart[$i]['quantity'] += $quantity;
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) {
+                    $cart[] = [
+                        'book_id' => $book->id,
+                        'ten_sach' => $book->ten_sach,
+                        'gia_tien' => $book->gia_tien,
+                        'anh' => $book->anh,
+                        'quantity' => $quantity
+                    ];
+                }
+                session(['cart' => $cart]);
+                $cartCount = array_sum(array_column($cart, 'quantity'));
                 return response()->json([
                     'success' => true,
                     'message' => 'Đã thêm vào giỏ hàng tạm thời',
+                    'cart_count' => $cartCount,
                     'book' => [
                         'id' => $book->id,
                         'ten_sach' => $book->ten_sach,
@@ -105,7 +126,36 @@ class CartController extends Controller
     public function viewCart()
     {
         if (!Auth::guard('khach_hang')->check()) {
-            return redirect()->route('login')->with('error', 'Vui lòng đăng nhập để xem giỏ hàng');
+            // Lấy giỏ hàng tạm từ session cho khách chưa đăng nhập
+            $cart = session('cart', []);
+            $cartArr = [];
+            $subTotal = 0;
+            foreach ($cart as $item) {
+                $item = array_merge([
+                    'book_id' => null,
+                    'ten_sach' => '',
+                    'gia_tien' => 0,
+                    'anh' => '',
+                    'quantity' => 0
+                ], $item);
+                $item['thanh_tien'] = $item['gia_tien'] * $item['quantity'];
+                $cartArr[] = (object)$item;
+                $subTotal += $item['thanh_tien'];
+            }
+            $cartItems = collect($cartArr);
+            $vat = $subTotal * 0.1;
+            $shipping = $subTotal >= 500000 ? 0 : 30000;
+            $orderTotal = $subTotal + $vat + $shipping;
+            $data = [
+                'cartItems' => $cartItems,
+                'subTotal' => $subTotal,
+                'vat' => $vat,
+                'shipping' => $shipping,
+                'orderTotal' => $orderTotal,
+                'free_shipping_threshold' => 500000,
+                'is_logged_in' => false
+            ];
+            return view('cart.index', compact('data'));
         }
 
         try {
@@ -432,7 +482,7 @@ class CartController extends Controller
                     'dia_chi' => $request->dia_chi,
                     'ghi_chu' => $request->ghi_chu,
                     'ho_ten' => $request->ho_ten,
-                    'sdt_nguoi_nhan' => $request->so_dien_thoai,
+                    'sdt_nguoi_nhan' => $request->input('so_dien_thoai', ''), // fix: luôn truyền giá trị, tránh null
                     'email' => $request->email,
                     'phi_van_chuyen' => $shipping,
                     'vat' => $vat,
@@ -479,5 +529,41 @@ class CartController extends Controller
                 'message' => 'Có lỗi xảy ra: ' . $e->getMessage()
             ], 500);
         }
+    }
+
+    // Gọi hàm này sau khi đăng nhập thành công để merge session cart vào DB
+    public static function mergeSessionCartToDb($userId)
+    {
+        $cart = session('cart', []);
+        if (empty($cart)) return;
+        $gioHang = GioHang::firstOrCreate([
+            'id_khach_hang' => $userId,
+            'trang_thai' => 'active'
+        ], [
+            'tong_tien' => 0
+        ]);
+        foreach ($cart as $item) {
+            $bookId = $item['book_id'] ?? $item['id'] ?? null;
+            $quantity = $item['quantity'] ?? 1;
+            $book = Sach::find($bookId);
+            if ($book) {
+                $cartDetail = ChiTietGioHang::where('id_gio_hang', $gioHang->id)
+                    ->where('id_sach', $bookId)
+                    ->first();
+                if ($cartDetail) {
+                    $cartDetail->so_luong += $quantity;
+                    $cartDetail->save();
+                } else {
+                    ChiTietGioHang::create([
+                        'id_gio_hang' => $gioHang->id,
+                        'id_sach' => $bookId,
+                        'so_luong' => $quantity,
+                        'gia_tien' => $book->gia_tien
+                    ]);
+                }
+            }
+        }
+        $gioHang->capNhatTongTien();
+        session()->forget('cart');
     }
 }

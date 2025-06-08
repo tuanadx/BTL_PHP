@@ -76,13 +76,13 @@ class OrderController extends Controller
             
             $order = DonHang::where('id', $id)
                 ->where('id_khach_hang', $userId)
-                ->where('trang_thai', 'pending')
+                ->where('trang_thai','cho_xu_ly')
                 ->firstOrFail();
 
             DB::beginTransaction();
             try {
                 // Cập nhật trạng thái đơn hàng
-                $order->trang_thai = 'cancelled';
+                $order->trang_thai = 'da_huy';
                 $order->save();
 
                 // Hoàn lại số lượng sách

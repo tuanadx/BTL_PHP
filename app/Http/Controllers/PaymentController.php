@@ -67,17 +67,18 @@ class PaymentController extends Controller
                 // Tạo đơn hàng mới
                 $order = DonHang::create([
                     'id_khach_hang' => $userId,
-                    'tong_tien' => $orderTotal, // Tổng tiền đã bao gồm VAT và phí ship
+                    'tong_tien' => $orderTotal,
                     'trang_thai' => 'cho_xu_ly',
                     'trang_thai_thanh_toan' => 'chua_thanh_toan',
                     'dia_chi' => $request->dia_chi,
                     'ghi_chu' => $request->ghi_chu,
                     'ho_ten' => $request->ho_ten,
-                    'so_dien_thoai' => $request->so_dien_thoai,
+                    'sdt_nguoi_nhan' => $request->input('so_dien_thoai', ''), // fix: luôn truyền giá trị, tránh null
                     'email' => $request->email,
                     'phi_van_chuyen' => $shipping,
                     'vat' => $vat,
-                    'tong_tien_hang' => $subTotal
+                    'tong_tien_hang' => $subTotal,
+                    'phuong_thuc_thanh_toan' => $request->input('payment_method', 'cod') // fix: truyền đúng phương thức thanh toán
                 ]);
 
                 // Thêm chi tiết đơn hàng

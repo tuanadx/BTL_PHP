@@ -18,19 +18,19 @@
                 <h1>Chi tiết đơn hàng #{{ $order->id }}</h1>
                 <div class="order-status {{ $order->trang_thai }}">
                     @switch($order->trang_thai)
-                        @case('pending')
+                        @case('cho_xu_ly')
                             <i class="fas fa-clock"></i> Chờ xác nhận
                             @break
-                        @case('confirmed')
+                        @case('da_xac_nhan')
                             <i class="fas fa-check"></i> Đã xác nhận
                             @break
-                        @case('shipping')
+                        @case('dang_giao_hang')
                             <i class="fas fa-truck"></i> Đang giao hàng
                             @break
-                        @case('completed')
+                        @case('da_giao_hang')
                             <i class="fas fa-check-circle"></i> Đã giao hàng
                             @break
-                        @case('cancelled')
+                        @case('da_huy')
                             <i class="fas fa-times-circle"></i> Đã hủy
                             @break
                         @default
@@ -76,11 +76,11 @@
                     <div class="info-content">
                         <div class="info-group">
                             <span class="label">Người nhận:</span>
-                            <span class="value">{{ $order->ho_ten_nguoi_nhan }}</span>
+                            <span class="value">{{ $order->ho_ten ?? $order->khachHang->ho_ten }}</span>
                         </div>
                         <div class="info-group">
                             <span class="label">Số điện thoại:</span>
-                            <span class="value">{{ $order->so_dien_thoai }}</span>
+                            <span class="value">{{ $order->sdt_nguoi_nhan ?? $order->khachHang->so_dien_thoai }}</span>
                         </div>
                         <div class="info-group">
                             <span class="label">Địa chỉ:</span>
@@ -138,7 +138,7 @@
                     </div>
                     <div class="summary-line total">
                         <span>Tổng cộng:</span>
-                        <span>{{ number_format($order->tong_thanh_toan, 0, ',', '.') }}₫</span>
+                        <span>{{ number_format($order->tong_tien, 0, ',', '.') }}₫</span>
                     </div>
                 </div>
             </div>
@@ -409,4 +409,4 @@ h2 {
     background: #c82333;
 }
 </style>
-@endpush 
+@endpush

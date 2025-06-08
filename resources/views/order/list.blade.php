@@ -21,11 +21,11 @@
                         <label for="status">Trạng thái:</label>
                         <select name="status" id="status" class="form-control" onchange="this.form.submit()">
                             <option value="">Tất cả</option>
-                            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Chờ xác nhận</option>
-                            <option value="confirmed" {{ request('status') == 'confirmed' ? 'selected' : '' }}>Đã xác nhận</option>
-                            <option value="shipping" {{ request('status') == 'shipping' ? 'selected' : '' }}>Đang giao hàng</option>
-                            <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Đã giao hàng</option>
-                            <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Đã hủy</option>
+                            <option value="cho_xu_ly" {{ request('status') == 'cho_xu_ly' ? 'selected' : '' }}>Chờ Xử Lý</option>
+                            
+                            <option value="dang_giao" {{ request('status') == 'dang_giao_hang' ? 'selected' : '' }}>Đang giao hàng</option>
+                            <option value="da_giao" {{ request('status') == 'da_giao_hang' ? 'selected' : '' }}>Đã giao hàng</option>
+                            <option value="da_huy" {{ request('status') == 'da_huy' ? 'selected' : '' }}>Đã hủy</option>
                         </select>
                     </div>
                 </form>
@@ -53,19 +53,17 @@
                         </div>
                         <div class="order-status {{ $order->trang_thai }}">
                             @switch($order->trang_thai)
-                                @case('pending')
-                                    <i class="fas fa-clock"></i> Chờ xác nhận
+                                @case('cho_xu_ly')
+                                    <i class="fas fa-clock"></i> Chờ xử lý
                                     @break
-                                @case('confirmed')
-                                    <i class="fas fa-check"></i> Đã xác nhận
-                                    @break
-                                @case('shipping')
+                               
+                                @case('dang_giao')
                                     <i class="fas fa-truck"></i> Đang giao hàng
                                     @break
-                                @case('completed')
+                                @case('da_giao')
                                     <i class="fas fa-check-circle"></i> Đã giao hàng
                                     @break
-                                @case('cancelled')
+                                @case('da_huy')
                                     <i class="fas fa-times-circle"></i> Đã hủy
                                     @break
                                 @default
@@ -106,7 +104,7 @@
                                 <i class="fas fa-eye"></i>
                                 Xem chi tiết
                             </a>
-                            @if($order->trang_thai == 'pending')
+                            @if($order->trang_thai == 'cho_xu_ly')
                             <form action="{{ route('order.cancel', ['id' => $order->id]) }}" method="POST" class="d-inline">
                                 @csrf
                                 <button type="submit" class="btn-cancel-order" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?')">

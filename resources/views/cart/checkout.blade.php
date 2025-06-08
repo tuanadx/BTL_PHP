@@ -234,7 +234,6 @@ function submitOrder() {
     // Get selected payment method
     const paymentMethod = $('input[name="payment_method"]:checked').val();
     
-    // Define the endpoint based on payment method
     const endpoint = paymentMethod === 'cod' 
         ? '{{ route("cart.process-checkout") }}'
         : '{{ route("payment") }}';
