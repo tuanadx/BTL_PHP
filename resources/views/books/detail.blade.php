@@ -130,12 +130,32 @@
     </div>
     
     <!-- Related Books Section -->
-    <section class="related-books">
+    <section class="book-detail-related">
         <div class="container">
-            <h2 class="section-title">Sách liên quan</h2>
-            <div class="books-slider">
-                <!-- Placeholder for related books -->
-                <div class="book-slide-message">Đang tải sách liên quan...</div>
+            <h2 class="book-detail-related-title">Sách cùng quốc gia</h2>
+            <div class="book-detail-related-slider">
+                @if($relatedBooks->count() > 0)
+                    <div class="swiper book-detail-related-swiper">
+                        <div class="swiper-wrapper">
+                            @foreach($relatedBooks as $relatedBook)
+                                <div class="swiper-slide">
+                                    <div class="book-detail-related-item">
+                                        <a href="{{ url('/books/detail/' . $relatedBook->id) }}">
+                                            <img src="{{ !empty($relatedBook->anh) ? asset('storage/' . $relatedBook->anh) : asset('images/default-book.jpg') }}" 
+                                                 alt="{{ $relatedBook->ten_sach }}" class="img-fluid">
+                                            <h4>{{ $relatedBook->ten_sach }}</h4>
+                                            <p class="book-detail-related-price">{{ number_format($relatedBook->gia_tien, 0, ',', '.') }}₫</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                @else
+                    <div class="book-detail-related-empty">Không có sách liên quan</div>
+                @endif
             </div>
         </div>
     </section>
@@ -145,103 +165,25 @@
 <!-- Thêm JavaScript cho trang chi tiết sách -->
 <script src="{{ asset('js/detail.js') }}" defer></script>
 
-<style>
-.section-title {
-    color: #2F5A33;
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #2F5A33;
-}
+<!-- Thêm Swiper JS và CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-.comment-form {
-    margin-bottom: 30px;
-}
-
-.comment-input {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 12px;
-    resize: none;
-}
-
-.comment-input:focus {
-    border-color: #2F5A33;
-    box-shadow: 0 0 0 0.2rem rgba(47, 90, 51, 0.25);
-}
-
-.btn-comment {
-    background-color: #2F5A33;
-    color: #fff;
-    padding: 8px 20px;
-    border: none;
-    border-radius: 4px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-comment:hover {
-    background-color: #1e3b21;
-}
-
-.comments-list {
-    max-height: 500px;
-    overflow-y: auto;
-    padding-right: 10px;
-}
-
-.comment-item {
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 4px;
-    margin-bottom: 15px;
-}
-
-.comment-author {
-    color: #2F5A33;
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-
-.comment-text {
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.comment-date {
-    color: #666;
-}
-
-.avatar {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #2F5A33;
-}
-
-.alert-info {
-    background-color: #f8f9fa;
-    border: 1px solid #2F5A33;
-    color: #2F5A33;
-    padding: 15px;
-    border-radius: 4px;
-}
-
-.alert-info a {
-    color: #2F5A33;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.alert-info a:hover {
-    text-decoration: underline;
-}
-
-.text-right {
-    text-align: right;
-}
-</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        new Swiper(".book-detail-related-swiper", {
+            slidesPerView: 4,
+            spaceBetween: 20,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            breakpoints: {
+                0: { slidesPerView: 1 },
+                640: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 }
+            }
+        });
+    });
+</script>

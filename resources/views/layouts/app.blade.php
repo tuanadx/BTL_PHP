@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="base-url" content="{{ url('/') }}">
     <title>{{ isset($title) ? $title : 'Nhà sách online' }}</title>
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -22,6 +23,8 @@
     <link href="{{ asset('css/home-sections.css') }}" rel="stylesheet">
     <!-- Static Pages CSS -->
     <link href="{{ asset('css/static-pages.css') }}" rel="stylesheet">
+    <!-- Login CSS -->
+    <link href="{{ asset('css/search.css') }}" rel="stylesheet">
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Base URL for JavaScript -->
