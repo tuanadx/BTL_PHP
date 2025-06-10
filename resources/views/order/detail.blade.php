@@ -102,7 +102,7 @@
                     @foreach($order->chiTietDonHang as $item)
                     <div class="order-item">
                         <div class="item-info">
-                            <img src="{{ !empty($item->sach->anh) ? asset('storage/' . $item->sach->anh) : asset('images/default-book.jpg') }}" 
+                            <img src="{{ !empty($item->sach->anh) ? asset('storage/books/' . basename($item->sach->anh)) : asset('images/default-book.jpg') }}" 
                                  alt="{{ $item->sach->ten_sach }}" class="item-image">
                             <div class="item-details">
                                 <h4>{{ $item->sach->ten_sach }}</h4>

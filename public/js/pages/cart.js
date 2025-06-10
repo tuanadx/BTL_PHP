@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ensure we only initialize once
     if (window.cartInitialized) return;
     window.cartInitialized = true;
-    
+
     initCartPage();
 });
 
@@ -30,7 +30,7 @@ function debounce(func, wait) {
 // Quantity controls in cart
 function setupQuantityControls() {
     const quantityControls = document.querySelectorAll('.quantity-controls');
-    
+
     // Tính tổng tiền từ tất cả các sản phẩm
     function calculateSubTotal() {
         let subTotal = 0;
@@ -86,7 +86,7 @@ function setupQuantityControls() {
             }
         }
     }
-    
+
     quantityControls.forEach(control => {
         const input = control.querySelector('.quantity-input');
         const decreaseBtn = control.querySelector('button:first-child');
@@ -95,7 +95,7 @@ function setupQuantityControls() {
         const priceElement = control.closest('tr').querySelector('.price');
         const totalElement = control.closest('tr').querySelector('.total');
         const price = parseInt(priceElement.textContent.replace(/[^\d]/g, ''));
-        
+
         // Create a single debounced update function for this control
         const debouncedUpdate = debounce(async (newQuantity) => {
             try {
@@ -113,9 +113,9 @@ function setupQuantityControls() {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                     },
-                    body: JSON.stringify({ 
-                        cart_detail_id: cartDetailId, 
-                        quantity: newQuantity 
+                    body: JSON.stringify({
+                        cart_detail_id: cartDetailId,
+                        quantity: newQuantity
                     })
                 });
 
@@ -151,16 +151,16 @@ function setupQuantityControls() {
         const newDecreaseBtn = decreaseBtn.cloneNode(true);
         const newIncreaseBtn = increaseBtn.cloneNode(true);
         const newInput = input.cloneNode(true);
-        
+
         decreaseBtn.parentNode.replaceChild(newDecreaseBtn, decreaseBtn);
         increaseBtn.parentNode.replaceChild(newIncreaseBtn, increaseBtn);
         input.parentNode.replaceChild(newInput, input);
-        
+
         // Store the original value when focusing
-        newInput.addEventListener('focus', function() {
+        newInput.addEventListener('focus', function () {
             this.defaultValue = this.value;
         });
-        
+
         // Handle decrease button
         newDecreaseBtn.addEventListener('click', () => {
             const currentValue = parseInt(newInput.value);
@@ -169,7 +169,7 @@ function setupQuantityControls() {
                 debouncedUpdate(newInput.value);
             }
         });
-        
+
         // Handle increase button
         newIncreaseBtn.addEventListener('click', () => {
             const currentValue = parseInt(newInput.value);
@@ -179,18 +179,18 @@ function setupQuantityControls() {
                 debouncedUpdate(newInput.value);
             }
         });
-        
+
         // Handle manual input
         newInput.addEventListener('change', () => {
             let value = parseInt(newInput.value);
             const max = parseInt(newInput.getAttribute('max'));
-            
+
             if (isNaN(value) || value < 1) {
                 value = 1;
             } else if (value > max) {
                 value = max;
             }
-            
+
             newInput.value = value;
             if (value !== parseInt(newInput.defaultValue)) {
                 debouncedUpdate(value);
@@ -242,11 +242,11 @@ function updateCartCount(count) {
 // Remove items from cart
 function setupRemoveItems() {
     const removeButtons = document.querySelectorAll('.remove-item');
-    
+
     removeButtons.forEach(button => {
         button.addEventListener('click', async () => {
             const cartDetailId = button.dataset.cartDetailId;
-            
+
             const result = await Swal.fire({
                 title: 'Xác nhận xóa',
                 text: 'Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?',
@@ -294,7 +294,7 @@ async function removeCartItem(cartDetailId) {
             if (itemRow) {
                 itemRow.remove();
             }
-            
+
             // Cập nhật số lượng trong giỏ hàng
             if (typeof data.cartCount !== 'undefined') {
                 updateCartCount(data.cartCount);
@@ -308,7 +308,7 @@ async function removeCartItem(cartDetailId) {
                 if (cartSummary) {
                     cartSummary.style.display = 'none';
                 }
-                
+
                 // Hiển thị thông báo giỏ hàng trống
                 const cartContent = document.querySelector('.cart-content');
                 if (cartContent) {
@@ -362,7 +362,7 @@ async function removeCartItem(cartDetailId) {
 function setupCartActions() {
     const clearCartBtn = document.querySelector('.clear-btn');
     const saveCartBtn = document.querySelector('.save-cart-btn');
-    
+
     if (clearCartBtn) {
         clearCartBtn.addEventListener('click', async () => {
             const result = await Swal.fire({

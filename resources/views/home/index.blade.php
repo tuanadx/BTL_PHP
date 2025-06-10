@@ -212,7 +212,7 @@
                         <div class="product-item">
                             <div class="product-image">
                                 <a href="{{ url('/books/detail/' . $book->id) }}">
-                                    <img src="{{ !empty($book->anh) ? asset('storage/' . $book->anh) : asset('images/default-book.jpg') }}" alt="{{ $book->ten_sach }}">
+                                    <img src="{{ !empty($book->anh) ? asset('storage/books/' . basename($book->anh)) : asset('images/default-book.jpg') }}" alt="{{ $book->ten_sach }}">
                                 </a>
                             </div>
                             <div class="product-info">

@@ -31,8 +31,16 @@ class CartController extends Controller
             if (!$book) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Sách không tồn tại'
+                    'message' => 'Không tìm thấy sách'
                 ], 404);
+            }
+
+            // Kiểm tra số lượng sách có sẵn
+            if ($book->so_luong < $quantity) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "Sách '{$book->ten_sach}' chỉ còn {$book->so_luong} cuốn trong kho"
+                ], 400);
             }
 
             if (Auth::guard('khach_hang')->check()) {
@@ -56,8 +64,15 @@ class CartController extends Controller
                     ->first();
 
                 if ($cartDetail) {
-                    // Cập nhật số lượng nếu đã có
-                    $cartDetail->so_luong += $quantity;
+                    // Kiểm tra tổng số lượng sau khi thêm
+                    $newQuantity = $cartDetail->so_luong + $quantity;
+                    if ($book->so_luong < $newQuantity) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => "Sách '{$book->ten_sach}' chỉ còn {$book->so_luong} cuốn trong kho. Bạn đã có {$cartDetail->so_luong} cuốn trong giỏ hàng."
+                        ], 400);
+                    }
+                    $cartDetail->so_luong = $newQuantity;
                     $cartDetail->save();
                 } else {
                     // Thêm mới chi tiết giỏ hàng
@@ -86,7 +101,15 @@ class CartController extends Controller
                 $found = false;
                 foreach ($cart as $i => $item) {
                     if (($item['book_id'] ?? $item['id']) == $bookId) {
-                        $cart[$i]['quantity'] += $quantity;
+                        // Kiểm tra tổng số lượng sau khi thêm
+                        $newQuantity = $item['quantity'] + $quantity;
+                        if ($book->so_luong < $newQuantity) {
+                            return response()->json([
+                                'success' => false,
+                                'message' => "Sách '{$book->ten_sach}' chỉ còn {$book->so_luong} cuốn trong kho. Bạn đã có {$item['quantity']} cuốn trong giỏ hàng."
+                            ], 400);
+                        }
+                        $cart[$i]['quantity'] = $newQuantity;
                         $found = true;
                         break;
                     }
@@ -464,6 +487,17 @@ class CartController extends Controller
                 ], 400);
             }
 
+            // Kiểm tra số lượng sách có sẵn trước khi tạo đơn hàng
+            foreach ($cartItems as $item) {
+                $book = $item->sach;
+                if ($book->so_luong < $item->so_luong) {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => "Sách '{$book->ten_sach}' chỉ còn {$book->so_luong} cuốn trong kho"
+                    ], 400);
+                }
+            }
+
             // Tính tổng tiền
             $subTotal = $cartItems->sum('thanh_tien');
             $vat = $subTotal * 0.1;
@@ -482,7 +516,7 @@ class CartController extends Controller
                     'dia_chi' => $request->dia_chi,
                     'ghi_chu' => $request->ghi_chu,
                     'ho_ten' => $request->ho_ten,
-                    'sdt_nguoi_nhan' => $request->input('so_dien_thoai', ''), // fix: luôn truyền giá trị, tránh null
+                    'sdt_nguoi_nhan' => $request->input('so_dien_thoai', ''),
                     'email' => $request->email,
                     'phi_van_chuyen' => $shipping,
                     'vat' => $vat,
@@ -490,17 +524,24 @@ class CartController extends Controller
                     'phuong_thuc_thanh_toan' => 'cod'
                 ]);
 
-                // Thêm chi tiết đơn hàng
+                // Thêm chi tiết đơn hàng và cập nhật số lượng sách
                 foreach ($cartItems as $item) {
+                    // Khóa sách để tránh race condition
+                    $book = Sach::lockForUpdate()->find($item->sach->id);
+                    
+                    // Kiểm tra lại số lượng sau khi khóa
+                    if ($book->so_luong < $item->so_luong) {
+                        throw new Exception("Sách '{$book->ten_sach}' chỉ còn {$book->so_luong} cuốn trong kho");
+                    }
+
                     ChiTietDonHang::create([
                         'don_hang_id' => $order->id,
-                        'sach_id' => $item->sach->id,
+                        'sach_id' => $book->id,
                         'so_luong' => $item->so_luong,
-                        'don_gia' => $item->sach->gia_tien
+                        'don_gia' => $book->gia_tien
                     ]);
 
                     // Cập nhật số lượng sách
-                    $book = $item->sach;
                     $book->so_luong -= $item->so_luong;
                     $book->save();
                 }

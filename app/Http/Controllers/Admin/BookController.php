@@ -58,7 +58,7 @@ class BookController extends Controller
         if ($request->hasFile('anh')) {
             $file = $request->file('anh');
             $fileName = time() . '_' . Str::slug($request->ten_sach) . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('/', $fileName, 'public');
+            $path = $file->storeAs('books', $fileName, 'public');
             $data['anh'] = $path;
         }
 
@@ -113,7 +113,7 @@ class BookController extends Controller
             
             $file = $request->file('anh');
             $fileName = time() . '_' . Str::slug($request->ten_sach) . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('/', $fileName, 'public');
+            $path = $file->storeAs('books', $fileName, 'public');
             $data['anh'] = $path;
         }
 

@@ -13,7 +13,7 @@
             @foreach($books as $book)
             <div class="col">
                 <div class="card search-card h-100">
-                    <img src="{{ $book->anh ? asset('storage/' . $book->anh) : asset('images/default-book.jpg') }}" class="card-img-top" alt="{{ $book->ten_sach }}">
+                    <img src="{{ $book->anh ? asset('storage/books/' . basename($book->anh)) : asset('images/default-book.jpg') }}" class="card-img-top" alt="{{ $book->ten_sach }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $book->ten_sach }}</h5>
                         <p class="card-text mb-1"><strong>Tác giả:</strong> {{ $book->tacGia->ten_tac_gia ?? 'N/A' }}</p>

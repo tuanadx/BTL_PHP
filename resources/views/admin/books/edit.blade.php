@@ -122,7 +122,7 @@
                         </div>
                         <div id="preview" class="mt-2">
                             @if($book->anh)
-                            <img src="{{ asset('storage/'.$book->anh) }}" alt="{{ $book->ten_sach }}" class="img-thumbnail" style="max-height: 500px;">
+                            <img src="{{ asset('storage/books/' . basename($book->anh)) }}" alt="{{ $book->ten_sach }}" class="img-thumbnail" style="max-height: 500px;">
                             @endif
                         </div>
                     </div>
@@ -173,7 +173,7 @@
             // Nếu không có file được chọn, hiển thị ảnh cũ nếu có
             const oldImage = '{{ $book->anh }}';
             if (oldImage) {
-                displayPreview('{{ asset("storage") }}/' + oldImage, '{{ $book->ten_sach }}');
+                displayPreview('{{ asset("storage/books") }}/' + '{{ basename($book->anh) }}', '{{ $book->ten_sach }}');
             } else {
                 document.getElementById('preview').innerHTML = '';
             }

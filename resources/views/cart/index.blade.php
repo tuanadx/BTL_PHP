@@ -39,7 +39,7 @@
                                     <tr data-cart-detail-id="{{ $item->id }}">
                                         <td class="image-col">
                                             <a href="{{ route('books.detail', ['id' => $item->sach->id]) }}">
-                                                <img src="{{ !empty($item->sach->anh) ? asset('storage/' . $item->sach->anh) : asset('images/default-book.jpg') }}" alt="{{ $item->sach->ten_sach }}">
+                                                <img src="{{ !empty($item->sach->anh) ? asset('storage/books/' . basename($item->sach->anh)) : asset('images/default-book.jpg') }}" alt="{{ $item->sach->ten_sach }}">
                                             </a>
                                         </td>
                                         <td class="item-col">
@@ -68,7 +68,7 @@
                                     <tr data-cart-detail-id="{{ $item->book_id }}">
                                         <td class="image-col">
                                             <a href="{{ route('books.detail', ['id' => $item->book_id]) }}">
-                                                <img src="{{ !empty($item->anh) ? asset('storage/' . $item->anh) : asset('images/default-book.jpg') }}" alt="{{ $item->ten_sach }}">
+                                                <img src="{{ !empty($item->anh) ? asset('storage/books/' . basename($item->anh)) : asset('images/default-book.jpg') }}" alt="{{ $item->ten_sach }}">
                                             </a>
                                         </td>
                                         <td class="item-col">

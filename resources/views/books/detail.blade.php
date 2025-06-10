@@ -19,7 +19,7 @@
             <div class="book-wrapper">
                 <div class="book-image-container">
                     <div class="main-image">
-                        <img src="{{ !empty($book->anh) ? asset('storage/' . $book->anh) : asset('images/default-book.jpg') }}" 
+                        <img src="{{ !empty($book->anh) ? asset('storage/books/' . basename($book->anh)) : asset('images/default-book.jpg') }}" 
                              alt="{{ $book->ten_sach }}" class="img-fluid">
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                                 <div class="swiper-slide">
                                     <div class="book-detail-related-item">
                                         <a href="{{ url('/books/detail/' . $relatedBook->id) }}">
-                                            <img src="{{ !empty($relatedBook->anh) ? asset('storage/' . $relatedBook->anh) : asset('images/default-book.jpg') }}" 
+                                            <img src="{{ !empty($relatedBook->anh) ? asset('storage/books/' . basename($relatedBook->anh)) : asset('images/default-book.jpg') }}" 
                                                  alt="{{ $relatedBook->ten_sach }}" class="img-fluid">
                                             <h4>{{ $relatedBook->ten_sach }}</h4>
                                             <p class="book-detail-related-price">{{ number_format($relatedBook->gia_tien, 0, ',', '.') }}₫</p>

@@ -37,7 +37,7 @@
                             <td>{{ $book->id }}</td>
                             <td>
                                 @if($book->anh)
-                                    <img src="{{ asset('storage/'.$book->anh) }}" alt="{{ $book->ten_sach }}" style="max-width: 50px;">
+                                    <img src="{{ asset('storage/books/' . basename($book->anh)) }}" alt="{{ $book->ten_sach }}" style="max-width: 50px;">
                                 @else
                                     <span class="text-muted">Không có ảnh</span>
                                 @endif
